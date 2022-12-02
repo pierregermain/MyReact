@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types";
 
 export const TercerComponente = ({nombre, libro, ficha}) => {
   return (
@@ -8,4 +9,9 @@ export const TercerComponente = ({nombre, libro, ficha}) => {
         <p>{ficha.estado}</p>
     </div>
   )
+}
+
+TercerComponente.propTypes = {
+    nombre: PropTypes.string.isRequired,
+    ficha: PropTypes.object
 }
