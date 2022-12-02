@@ -16,8 +16,8 @@ export const SegundoComponente = () => {
         <p>Uso de map</p>
         <ul>
             {
-                libros.map(libro, indice => {
-                    return <li key={indice}>{libro}</li>
+                libros.map((libro, indice) => {
+                    return <li key={indice}>{libro}</li>;
                 })
             }
         </ul>
