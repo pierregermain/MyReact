@@ -2,7 +2,7 @@ import React from 'react'
 
 export const SegundoComponente = () => {
 
-    const libros = ["Harry Potter", "GOT", "RHCP"];
+    let libros = ["Harry Potter", "GOT", "RHCP"];
     //const libros = [];
 
   return (
