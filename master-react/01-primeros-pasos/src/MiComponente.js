@@ -1,10 +1,15 @@
 // Importar modules react y dependencias
-import React from "react";
+import React, {Fragment} from "react";
 
 // Funciones del componente
 const MiComponente = () => {
 
-    return <><p>Mi primer</p><p> componente</p></>;
+    return (
+        <Fragment>
+            <p>Mi primer</p>
+            <p>componente</p>
+        </Fragment>
+    );
 };
 
 // Export
