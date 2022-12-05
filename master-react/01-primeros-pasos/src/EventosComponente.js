@@ -1,15 +1,15 @@
 import React from 'react'
 
 export const EventosComponente = () => {
-    const hasDadoClick = (evento) => {
+    const hasDadoClick = (evento,nombre) => {
         console.log(evento);
-        console.log("HOla desde el click function");
+        console.log("Hola " + nombre);
     }
   return (
     <div>
         <h1>Eventos en React</h1>
         {/*Evento click*/}
-        <button onClick={ hasDadoClick }>Dame click!</button>
+        <button onClick={ evento => hasDadoClick(evento, "Pierre") }>Dame click!</button>
     </div>
   )
 }
