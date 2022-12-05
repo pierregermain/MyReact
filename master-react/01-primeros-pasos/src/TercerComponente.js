@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types";
 
-export const TercerComponente = ({nombre, libro, ficha}) => {
+export const TercerComponente = ({nombre = "Pierre default", libro = "Harry default", ficha}) => {
   return (
     <div>
         <h1>Comunicacion entre componentes</h1>

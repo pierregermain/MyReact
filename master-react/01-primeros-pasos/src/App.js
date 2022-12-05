@@ -22,8 +22,6 @@ function App() {
           <MiComponente />
           <hr></hr>
           <TercerComponente 
-            nombre="Pierre" 
-            libro="Harry"
             ficha={ficha}
             />
           <hr></hr>
