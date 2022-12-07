@@ -32,7 +32,7 @@ export const EventosComponente = () => {
         <div id="caja" 
             onMouseEnter={hasEntrado} 
             onMouseLeave={e => hasAccion(e, "salido")}>
-          Pasa por encima!
+          <p>Pasa por encima</p>
         </div>
 
     </div>
