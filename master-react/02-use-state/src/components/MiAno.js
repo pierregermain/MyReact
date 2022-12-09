@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import PropTypes from "prop-types";
 import Time from 'react';
 
 export const MiAno = ({ano}) => {
@@ -10,6 +11,15 @@ export const MiAno = ({ano}) => {
     }
     const restar = (e) => {
         setAnoNow(anoNow-1);
+    }
+    const cambiarAno = e => {
+        let dato = parseInt(e.target.value);
+        if(Number.isInteger(dato)){
+          setAnoNow(dato);
+        }
+        else{
+            setAnoNow(ano);
+        }
     }
   return (
     <div>
@@ -24,15 +34,20 @@ export const MiAno = ({ano}) => {
         &nbsp;
         <button onClick={restar}>Restar año</button>
 
+        &nbsp;
+        <input 
+        	 onChange={ cambiarAno}
+             type="text"
+             placeholder='Cambiar año' />
+
     </div>
   )
 }
-/*
+
 MiAno.propTypes = {
-    ano: PropTypes.string.isRequired,
+    ano: PropTypes.number.isRequired,
 }
 
 MiAno.defaultProps = {
   ano: new Date().getFullYear(),
 }
-*/
