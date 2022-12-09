@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 export const MiPrimerEstado = () => {
-    let nombre = "Pierre";
 
+    const [ nombre, setNombre ] = useState("Pierre Germain");
+    
     const cambiarNombre = e => {
-        nombre = "Hans";
+        setNombre("Hans Trabajar");
     }
 
   return (
@@ -14,7 +15,7 @@ export const MiPrimerEstado = () => {
             {nombre}
         </strong>
         &nbsp;
-        <button onClick={cambiarNombre}>Cambiar</button>
+        <button onClick={ cambiarNombre }>Cambiar</button>
     </div>
   )
 }
