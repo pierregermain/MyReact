@@ -3,9 +3,9 @@ import React, {useState} from 'react'
 export const MiPrimerEstado = () => {
 
     const [ nombre, setNombre ] = useState("Pierre Germain");
-    
-    const cambiarNombre = e => {
-        setNombre("Hans Trabajar");
+
+    const cambiarNombre = (e, nombreFijo) => {
+        setNombre(nombreFijo);
     }
 
   return (
@@ -15,7 +15,7 @@ export const MiPrimerEstado = () => {
             {nombre}
         </strong>
         &nbsp;
-        <button onClick={ cambiarNombre }>Cambiar</button>
+        <button onClick={ e => cambiarNombre(e, "Hans") }>Cambiar nombre por Hans</button>
     </div>
   )
 }
