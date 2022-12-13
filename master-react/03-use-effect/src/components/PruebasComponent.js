@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const PruebasComponent = () => {
     const [usuario,setUsuario] = useState('Pierre Germain');
 
     const modUsuario = e => {
         setUsuario(e.target.value);
-
     };
+
+    useEffect(() => {
+      console.log('has cargado el componente o realizado cambios en un estado');
+    
+    })
+    
   return (
     <>
         <h1>El Efecto - Hook useEffect</h1>
