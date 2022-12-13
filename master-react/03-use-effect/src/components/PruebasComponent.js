@@ -8,9 +8,9 @@ export const PruebasComponent = () => {
     };
 
     useEffect(() => {
-      console.log('has cargado el componente o realizado cambios en un estado');
+      console.log('has cargado el componente');
     
-    })
+    }, [])
     
   return (
     <>
