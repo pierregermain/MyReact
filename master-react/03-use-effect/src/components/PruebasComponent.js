@@ -12,6 +12,11 @@ export const PruebasComponent = () => {
     
     }, [])
     
+    useEffect(() => {
+      console.log('has cambiado el usuario (o cargado el componente)');
+    
+    }, [usuario])
+    
   return (
     <>
         <h1>El Efecto - Hook useEffect</h1>
