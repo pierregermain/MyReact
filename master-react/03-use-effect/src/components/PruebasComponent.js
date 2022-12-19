@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { AvisoComponent } from './AvisoComponent';
 
 export const PruebasComponent = () => {
     const [usuario,setUsuario] = useState('Pierre Germain');
@@ -26,6 +27,7 @@ export const PruebasComponent = () => {
         <form>
             <input type="text" onChange={modUsuario} placeholder="Cambia nombre" />
         </form>
+        { contador >= 20 && <AvisoComponent />}
     </>
   )
 }
