@@ -27,7 +27,7 @@ export const PruebasComponent = () => {
         <form>
             <input type="text" onChange={modUsuario} placeholder="Cambia nombre" />
         </form>
-        { contador >= 20 && <AvisoComponent />}
+        { usuario == 'Pierre' && <AvisoComponent />}
     </>
   )
 }
