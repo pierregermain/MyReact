@@ -15,10 +15,26 @@ export const AjaxComponent = () => {
 
         ]);
     }
+    
+    const getUsuariosAjaxPms = () => {
+        fetch("https://reqres.in/api/users?page=1")
+            .then(respuesta => respuesta.json())
+            .then(resultado_final => {
+                setUsuarios(resultado_final.data);
+                console.log(usuarios);
+
+            },
+            error => {
+                alert('No se ha podido obtener los usuarios');            
+            }
+            )
+    }
 
     useEffect(() => {
-        getUsuariosEstaticos();
+        //getUsuariosEstaticos();
+        getUsuariosAjaxPms();
     }, []);
+
     
     return (
     <div>
