@@ -6,6 +6,7 @@ import { useState } from 'react';
 export const AjaxComponent = () => {
 
     const [usuarios, setUsuarios] = useState([]);
+    const [cargando, setCargando] = useState(true);
 
     // Rellenar array
     const getUsuariosEstaticos = () => {
@@ -33,9 +34,9 @@ export const AjaxComponent = () => {
     const getUsuariosAjaxAW = async() => {
         const peticion = await fetch("https://reqres.in/api/users?page=1");
         const {data} = await peticion.json();
-        console.log(data);
 
         setUsuarios(data);
+        setCargando(false);
     }
 
     useEffect(() => {
@@ -44,17 +45,28 @@ export const AjaxComponent = () => {
         getUsuariosAjaxAW();
     }, []);
 
-    
-    return (
-    <div>
-        <div>Listado usuarios</div>
-        <ol className='usuarios'>
-            {
-                usuarios.map(usuario => {
-                return <li key={usuario.id}>{usuario.first_name}</li>;
-            })
-            }
-        </ol>
-    </div>
-    )
+    // Plantilla cargando
+    if(cargando){
+        return (
+            <div className="cargando">
+                Cargando datos...
+            </div>
+
+        )
+    }
+    else{
+    // Plantilla cargado
+        return (
+        <div>
+            <div>Listado usuarios</div>
+            <ol className='usuarios'>
+                {
+                    usuarios.map(usuario => {
+                    return <li key={usuario.id}>{usuario.first_name}</li>;
+                })
+                }
+            </ol>
+        </div>
+        )
+        }
 }
