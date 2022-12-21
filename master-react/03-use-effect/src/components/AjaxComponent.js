@@ -36,7 +36,7 @@ export const AjaxComponent = () => {
 
         setTimeout(async() => {
             try{
-                const peticion = await fetch("https://reqres.in/apiXXXX/users?page=1");
+                const peticion = await fetch("https://reqres.in/api/users?page=1");
                 const {data} = await peticion.json();
 
                 setUsuarios(data);
