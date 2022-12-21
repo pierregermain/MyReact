@@ -7,6 +7,7 @@ export const AjaxComponent = () => {
 
     const [usuarios, setUsuarios] = useState([]);
     const [cargando, setCargando] = useState(true);
+    const [errores, setErrores] = useState("");
 
     // Rellenar array
     const getUsuariosEstaticos = () => {
@@ -31,14 +32,21 @@ export const AjaxComponent = () => {
             )
     }
 
-    const getUsuariosAjaxAW = () => {
+    const getUsuariosAjaxAW = async() => {
 
         setTimeout(async() => {
-            const peticion = await fetch("https://reqres.in/api/users?page=1");
-            const {data} = await peticion.json();
+            try{
+                const peticion = await fetch("https://reqres.in/apiXXXX/users?page=1");
+                const {data} = await peticion.json();
 
-            setUsuarios(data);
-            setCargando(false);
+                setUsuarios(data);
+                setCargando(false);
+
+            }
+            catch(error){
+                setErrores(error.message);
+                console.log(error.message);
+            }
 
         },2000);
     }
@@ -50,7 +58,16 @@ export const AjaxComponent = () => {
     }, []);
 
     // Plantilla cargando
-    if(cargando){
+    if(errores !== ""){
+        return (
+            <div className="errores">
+                Ha ocurrido un error:{errores}
+            </div>
+
+        )
+
+    }
+    else if(cargando && errores === "") {
         return (
             <div className="cargando">
                 Cargando datos...
@@ -58,7 +75,7 @@ export const AjaxComponent = () => {
 
         )
     }
-    else{
+    else if (!cargando && errores === "") {
     // Plantilla cargado
         return (
         <div>
