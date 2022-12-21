@@ -31,12 +31,16 @@ export const AjaxComponent = () => {
             )
     }
 
-    const getUsuariosAjaxAW = async() => {
-        const peticion = await fetch("https://reqres.in/api/users?page=1");
-        const {data} = await peticion.json();
+    const getUsuariosAjaxAW = () => {
 
-        setUsuarios(data);
-        setCargando(false);
+        setTimeout(async() => {
+            const peticion = await fetch("https://reqres.in/api/users?page=1");
+            const {data} = await peticion.json();
+
+            setUsuarios(data);
+            setCargando(false);
+
+        },2000);
     }
 
     useEffect(() => {
