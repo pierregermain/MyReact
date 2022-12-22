@@ -71,3 +71,12 @@ form button:hover {
   color: green;
   border: 1px solid yellowgreen;
 }
+
+.label {
+  display: block;
+  background-color: lightgreen;
+  border-radius: 5px;
+  padding: 5px;
+  color: green;
+  margin: 15px;
+}
