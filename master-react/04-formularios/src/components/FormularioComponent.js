@@ -23,15 +23,10 @@ export const FormularioComponent = () => {
 
     const cambiarDatos = e => {
         let input_name = e.target.name;
-        console.log(input_name);
+        let usuario_copy = usuario;
 
-        // Acceder a targets manualmente
-        let usuario_copy_manual
-        
-        if (input_name === 'nombre'){
-            usuario_copy_manual = e.target.value;
-            console.log(usuario_copy_manual);
-        }
+        usuario_copy[input_name] = e.target.value;
+        setUsuario(usuario_copy);
 
     }
 
