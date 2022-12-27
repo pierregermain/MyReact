@@ -23,10 +23,13 @@ export const FormularioComponent = () => {
 
     const cambiarDatos = e => {
         let input_name = e.target.name;
-        let usuario_copy = usuario;
 
-        usuario_copy[input_name] = e.target.value;
-        setUsuario(usuario_copy);
+        setUsuario(estado_previo => {
+            return {
+              ...estado_previo,
+              [input_name]: e.target.value
+            }
+        });
 
     }
 
