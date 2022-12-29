@@ -1,24 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const Crear = () => {
 
     const title = 'Añadir pelicula';
+    const [peliState,setPeliState] = useState({
+        title:'',
+        description:'',
+    })
 
     const getDataForm = e => {
         // Para que no se recargue la page
         e.preventDefault();
 
+        // Obtener datos del form y meter en objeto
         let target = e.target;
         let title = target.title.value;
         let description = target.description.value;
 
-        console.log(target);
+        let peli = {
+            id: new Date().getTime(),
+            title,
+            description
+        };
+
+        setPeliState(peli);
+
+        console.log(peli);
         alert('Formulario enviado');
     }
 
   return (
     <div className="add">
         <h3 className="title">{title}</h3>
+        <p><strong>
+            {(peliState.title) && peliState.title+' se he creado.'}
+        </strong></p>
         <form onSubmit={getDataForm}>
             <input type="text" 
                 id="title" 
