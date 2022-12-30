@@ -1,24 +1,19 @@
-export const SaveInStorage = peli => {
+export const SaveInStorage = (key,element) => {
     // Obtener pelis del local storage
-    let pelis = JSON.parse(localStorage.getItem('pelis'));
+    let elements = JSON.parse(localStorage.getItem(key));
 
-    console.log(pelis);
-
-    // Check si pelis es array
-    if(Array.isArray(pelis)){
-        console.log('añadir');
+    // Check si elements es array
+    if(Array.isArray(elements)){
         // Añadir peli
-        pelis.push(peli);
-    }
-    else{
+        elements.push(element);
+    } else{
         // Crear array nuevo
-        pelis = [peli];
+        elements = [element];
     }
 
     // Guardar en local storage
-    localStorage.setItem('pelis', JSON.stringify([pelis]));
-    console.log(pelis);
+    localStorage.setItem(key, JSON.stringify(elements));
 
-    // Optional: Devolver peli
-    return peli;
+    // Optional: Devolver elemento
+    return element;
 }

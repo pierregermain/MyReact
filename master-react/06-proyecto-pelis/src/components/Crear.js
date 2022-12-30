@@ -27,7 +27,7 @@ export const Crear = () => {
         setPeliState(peli);
 
         // Guardar en el local storage
-        SaveInStorage(peli);
+        SaveInStorage("pelis",peli);
 
     }
 
