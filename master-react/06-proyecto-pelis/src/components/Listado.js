@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export const Listado = () => {
-
-  const [listState, setListState] = useState([]);
+export const Listado = ({listadoState,setListadoState}) => {
 
   useEffect(() => {
 
@@ -11,18 +9,18 @@ export const Listado = () => {
 
   },[]);
 
-  const getPelis = () =>{
+  const getPelis = () => {
     let peliculas = JSON.parse(localStorage.getItem("pelis"));
 
-    setListState(peliculas);
-
+    setListadoState(peliculas);
     console.log(peliculas);
   };
 
+
   return (
     <>
-    {listState != null ? 
-      listState.map(peli => {
+    {listadoState != null ?
+      listadoState.map(peli => {
         return (
               <article key={peli.id} className="peli-item">
                   <h3 className="title">{peli.title}</h3>

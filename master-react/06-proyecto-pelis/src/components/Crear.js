@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { SaveInStorage } from '../helpers/SaveInStorage';
 
-export const Crear = () => {
+export const Crear = ({setListadoState}) => {
 
     const title = 'Añadir pelicula';
     const [peliState,setPeliState] = useState({
@@ -28,6 +28,10 @@ export const Crear = () => {
 
         // Guardar en el local storage
         SaveInStorage("pelis",peli);
+
+        setListadoState(elements => {
+            return [...elements, peli];
+        })
 
     }
 
