@@ -38,13 +38,21 @@ export const Listado = ({listadoState,setListadoState}) => {
         return (
               <article key={peli.id} className="peli-item">
                   <h3 className="title">{peli.title}</h3>
-                  <p className="description">{peli.description}s</p>
+                  <p className="description">{peli.description}</p>
 
                   <button className="edit" onClick={ () => setEditar(peli.id) }>Editar</button>
                   <button className="delete" onClick={ () => deletePeli(peli.id)}>Borrar</button>
 
                   {/*Formulario Editar*/}
-                  {editar === peli.id && <Editar peli={peli}/>}
+                  {editar === peli.id && (
+
+                    <Editar 
+                      peli={peli}
+                        getPelis={getPelis}
+                        setEditar={setEditar}
+                        setListadoState={setListadoState}
+                    />
+                  )}
 
               </article>
         );
