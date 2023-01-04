@@ -4,10 +4,14 @@ import React from 'react'
 export const Editar = ({peli}) => {
 //export const Editar = () => {
     const titulo_componente = "Editar pelicula";
-   /* 
-    const setDataForm = (e, id) => {
+    
+    const guardarEdicion = (e, id) => {
+
         e.preventDefault();
 
+        alert(id);
+
+        /*
         // Form actual
         let target = e.target;
 
@@ -34,14 +38,15 @@ export const Editar = ({peli}) => {
 
         setListadoState(pelis_almacenadas);
         setEditar(0);
+        */
     }
-    */
+    
 
   return (
     <div className='edit_form'>
         <h3 className='title'>{titulo_componente}</h3>
 
-        <form>
+        <form onSubmit={ e => guardarEdicion(e, peli.id)}>
             <input type="text" 
                 name='title'
                 className="titulo_editado" 
