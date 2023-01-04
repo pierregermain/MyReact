@@ -18,6 +18,7 @@ export const Crear = ({setListadoState}) => {
         let title = target.title.value;
         let description = target.description.value;
 
+        // *** OBJETO PELI ****
         let peli = {
             id: new Date().getTime(),
             title,

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
+import { Editar } from './Editar';
 
 export const Listado = ({listadoState,setListadoState}) => {
 
+  const [editar, setEditar] = useState(0);
+
   useEffect(() => {
 
-    console.log('componente del listado de pelis')
-    getPelis();
+   let peliculas = JSON.parse(localStorage.getItem("pelis"));
+   setListadoState(peliculas);
 
-  },[]);
+  }, [setListadoState]);
 
   const getPelis = () => {
     let peliculas = JSON.parse(localStorage.getItem("pelis"));
 
     setListadoState(peliculas);
-
     return peliculas;
   };
 
@@ -38,8 +40,12 @@ export const Listado = ({listadoState,setListadoState}) => {
                   <h3 className="title">{peli.title}</h3>
                   <p className="description">{peli.description}s</p>
 
-                  <button className="edit">Editar</button>
+                  <button className="edit" onClick={ () => setEditar(peli.id) }>Editar</button>
                   <button className="delete" onClick={ () => deletePeli(peli.id)}>Borrar</button>
+
+                  {/*Formulario Editar*/}
+                  {editar === peli.id && <Editar peli={peli}/>}
+
               </article>
         );
       })
