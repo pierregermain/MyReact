@@ -1,44 +1,42 @@
 import React from 'react'
 
-//export const Editar = ({peli, getPelis, setEditar, setListadoState}) => {
-export const Editar = ({peli}) => {
-//export const Editar = () => {
+export const Editar = ({peli, conseguirPeliculas, setEditar, setListadoState}) => {
     const titulo_componente = "Editar pelicula";
     
     const guardarEdicion = (e, id) => {
 
         e.preventDefault();
 
-        alert(id);
-
-        /*
         // Form actual
         let target = e.target;
 
         // Todas las pelis en forma de array
-        const pelis_almacenadas = getPelis();
+        const pelis_almacenadas = conseguirPeliculas();
+        console.log(pelis_almacenadas);
 
         // Buscamos en el array el index de nuestro elemento
         const indice = pelis_almacenadas.findIndex(peli => peli.id === id);
 
         // Creamos objeto peli con el index
-        let peli_update = {
+        let peli_actualizada = {
             id,
             title: target.title.value,
             description: target.description.value
         }
 
-        //console.log(index, peli);
+        console.log(indice, peli_actualizada);
 
         // Actualizar datos
-        pelis_almacenadas[indice] = peli_update;
+        pelis_almacenadas[indice] = peli_actualizada;
 
-        // Actualizar local storage
+        console.log(pelis_almacenadas);
+
+        // Guardar el nuevo array de objetos en el localstorage
         localStorage.setItem("pelis", JSON.stringify(pelis_almacenadas));
 
+        // Actualizar UI
         setListadoState(pelis_almacenadas);
         setEditar(0);
-        */
     }
     
 
