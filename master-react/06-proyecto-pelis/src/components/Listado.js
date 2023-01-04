@@ -13,9 +13,21 @@ export const Listado = ({listadoState,setListadoState}) => {
     let peliculas = JSON.parse(localStorage.getItem("pelis"));
 
     setListadoState(peliculas);
-    console.log(peliculas);
+
+    return peliculas;
   };
 
+  const deletePeli = (id) => {
+    // Filtrar peli desde el localstorage
+    let pelis_localstorage = getPelis();
+    let pelis_localstorage_new = pelis_localstorage.filter(peli => peli.id !== parseInt(id));
+
+    // Actualizar localstorage
+    localStorage.setItem('pelis', JSON.stringify(pelis_localstorage_new));
+
+    // Actualizar UI
+    setListadoState(pelis_localstorage_new);
+  }
 
   return (
     <>
@@ -27,7 +39,7 @@ export const Listado = ({listadoState,setListadoState}) => {
                   <p className="description">{peli.description}s</p>
 
                   <button className="edit">Editar</button>
-                  <button className="delete">Borrar</button>
+                  <button className="delete" onClick={ () => deletePeli(peli.id)}>Borrar</button>
               </article>
         );
       })
