@@ -1,8 +1,10 @@
 import React from 'react'
 
-export const Editar = ({peli, getPelis, setEditar, setListadoState}) => {
-    const title_comp = "Editar pelicula";
-    
+//export const Editar = ({peli, getPelis, setEditar, setListadoState}) => {
+export const Editar = ({peli}) => {
+//export const Editar = () => {
+    const titulo_componente = "Editar pelicula";
+   /* 
     const setDataForm = (e, id) => {
         e.preventDefault();
 
@@ -33,26 +35,29 @@ export const Editar = ({peli, getPelis, setEditar, setListadoState}) => {
         setListadoState(pelis_almacenadas);
         setEditar(0);
     }
+    */
 
   return (
     <div className='edit_form'>
-        <h3 className='title'>{title_comp}</h3>
-        <form onSubmit={ e => setDataForm(e, peli.id)}>
+        <h3 className='title'>{titulo_componente}</h3>
+
+        <form>
             <input type="text" 
                 name='title'
-                className='title_edit'
-                defaultValue={peli.title}/>
+                className="titulo_editado" 
+                defaultValue={peli.title} />
 
             <textarea 
                 name='description'
-                className='description_edit'
-                defaultValue={peli.description}>
+                defaultValue={peli.description}
+                className='description_editado'>
             </textarea>
 
             <input type="submit" 
-                className='editar'
+                className="editar" 
                 value="Actualizar" />
         </form>
+
     </div>
   )
 }
