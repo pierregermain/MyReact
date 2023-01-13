@@ -39,7 +39,9 @@ function App() {
 
         {/*Barra lateral*/}
         <aside className="lateral">
-              <Buscador />
+              {/* Al buscador le pasamos el listadoState para tener el listado de peliculas*/}
+              {/* y le pasamos el setListadoState para que pueda actualizar el listado de peliculas*/}
+              <Buscador listadoState={listadoState} setListadoState={setListadoState}/>
               <Crear setListadoState={setListadoState} />
         </aside>
 
