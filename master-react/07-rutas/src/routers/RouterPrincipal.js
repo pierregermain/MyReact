@@ -12,6 +12,7 @@ export const RouterPrincipal = () => {
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/articulos" element={<Articulos />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/*" element={<h1>Esta página no existe</h1>} />
       </Routes>
     </BrowserRouter>
   )
