@@ -4,14 +4,7 @@ import { useParams } from 'react-router-dom'
 
 export const Persona = () => {
 
-  let {nombre, apellido} = useParams();
-
-  if(!nombre){
-    nombre= "Pierre";
-  }
-  if(!apellido){
-    apellido= "Germain";
-  }
+  let {nombre="Pierre", apellido="Germain"} = useParams();
 
   return (
     <div>
