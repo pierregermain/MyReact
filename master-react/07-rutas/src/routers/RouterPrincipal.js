@@ -4,6 +4,7 @@ import { Articulos } from '../components/Articulos';
 import { Contacto } from '../components/Contacto';
 import { Inicio } from '../components/Inicio';
 import { Error } from '../components/Error';
+import { Persona } from '../components/Persona';
 
 export const RouterPrincipal = () => {
   return (
@@ -29,6 +30,11 @@ export const RouterPrincipal = () => {
             className={({isActive}) => { return isActive ? "activado":"";}}
             >Articulos</NavLink>
           </li>
+          <li>
+            <NavLink to="/persona"
+            className={({isActive}) => { return isActive ? "activado":"";}}
+            >Persona</NavLink>
+          </li>
         </ul>
 
       </nav>
@@ -41,6 +47,7 @@ export const RouterPrincipal = () => {
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/articulos" element={<Articulos />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/persona/:nombre/:apellido" element={<Persona />} />
         <Route path="/*" element={<Error />} />
       </Routes>
       </section>
