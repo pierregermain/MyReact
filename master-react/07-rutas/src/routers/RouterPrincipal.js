@@ -13,13 +13,20 @@ export const RouterPrincipal = () => {
       <nav>
         <ul>
           <li>
-            <NavLink to="/inicio">Inicio</NavLink>
+            <NavLink 
+            to="/inicio" 
+            className={({isActive}) => { return isActive ? "activado":"";}}
+              >Inicio</NavLink>
           </li>
           <li>
-            <NavLink to="/contacto">Contacto</NavLink>
+            <NavLink to="/contacto"
+            className={({isActive}) => { return isActive ? "activado":"";}}
+            >Contacto</NavLink>
           </li>
           <li>
-            <NavLink to="/articulos">Articulos</NavLink>
+            <NavLink to="/articulos"
+            className={({isActive}) => { return isActive ? "activado":"";}}
+            >Articulos</NavLink>
           </li>
         </ul>
 
