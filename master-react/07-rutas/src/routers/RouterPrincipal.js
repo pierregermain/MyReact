@@ -10,7 +10,20 @@ export const RouterPrincipal = () => {
       <h1>Cabecera</h1>
       <hr/>
 
-      <h2>Menu</h2>
+      <nav>
+        <ul>
+          <li>
+            <a href="/inicio">Inicio</a>
+          </li>
+          <li>
+            <a href="/contacto">Contacto</a>
+          </li>
+          <li>
+            <a href="/articulos">Articulos</a>
+          </li>
+        </ul>
+
+      </nav>
       <hr/>
 
       <section class="contenido-principal">
