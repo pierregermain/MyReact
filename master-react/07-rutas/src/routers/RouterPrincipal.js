@@ -7,6 +7,14 @@ import { Inicio } from '../components/Inicio';
 export const RouterPrincipal = () => {
   return (
     <BrowserRouter>
+      <h1>Cabecera</h1>
+      <hr/>
+
+      <h2>Menu</h2>
+      <hr/>
+
+      <section class="contenido-principal">
+      {/* Carga de componentes al coincidir con el path*/}
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/inicio" element={<Inicio />} />
@@ -14,6 +22,13 @@ export const RouterPrincipal = () => {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/*" element={<h1>Esta página no existe</h1>} />
       </Routes>
+      </section>
+
+      <hr/>
+      <footer>
+        Es es el footer
+      </footer>
+
     </BrowserRouter>
   )
 }
