@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route, Link, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, NavLink, BrowserRouter } from 'react-router-dom';
 import { Articulos } from '../components/Articulos';
 import { Contacto } from '../components/Contacto';
 import { Inicio } from '../components/Inicio';
@@ -13,20 +13,20 @@ export const RouterPrincipal = () => {
       <nav>
         <ul>
           <li>
-            <a href="/inicio">Inicio</a>
+            <NavLink to="/inicio">Inicio</NavLink>
           </li>
           <li>
-            <a href="/contacto">Contacto</a>
+            <NavLink to="/contacto">Contacto</NavLink>
           </li>
           <li>
-            <a href="/articulos">Articulos</a>
+            <NavLink to="/articulos">Articulos</NavLink>
           </li>
         </ul>
 
       </nav>
       <hr/>
 
-      <section class="contenido-principal">
+      <section className="contenido-principal">
       {/* Carga de componentes al coincidir con el path*/}
       <Routes>
         <Route path="/" element={<Inicio />} />
