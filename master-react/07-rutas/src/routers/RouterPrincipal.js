@@ -3,6 +3,7 @@ import { Routes, Route, NavLink, BrowserRouter } from 'react-router-dom';
 import { Articulos } from '../components/Articulos';
 import { Contacto } from '../components/Contacto';
 import { Inicio } from '../components/Inicio';
+import { Error } from '../components/Error';
 
 export const RouterPrincipal = () => {
   return (
@@ -40,7 +41,7 @@ export const RouterPrincipal = () => {
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/articulos" element={<Articulos />} />
         <Route path="/contacto" element={<Contacto />} />
-        <Route path="/*" element={<h1>Esta página no existe</h1>} />
+        <Route path="/*" element={<Error />} />
       </Routes>
       </section>
 
