@@ -13,7 +13,6 @@ export const MisRutas = () => {
     <BrowserRouter>
       {/* Navegación*/}
       <HeaderNav />
-      <hr />
 
       {/* Contenido principal*/}
       <section className='content'>
