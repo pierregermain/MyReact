@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <footer>Footer</footer>
+    <footer className='footer'>Pierre Germain 2023</footer>
   )
 }
