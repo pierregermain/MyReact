@@ -9,7 +9,7 @@ export const Portafolio = () => {
       {
         trabajos.map(trabajo => {
           return (
-            <article>
+            <article key={trabajo.id}>
               <h2>{trabajo.nombre}</h2>
             </article>
           )
