@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { trabajos } from '../data/trabajos'
 
 export const Portafolio = () => {
@@ -11,6 +12,7 @@ export const Portafolio = () => {
           return (
             <article key={trabajo.id}>
               <h2>{trabajo.nombre}</h2>
+              <Link to={"/proyecto/"+trabajo.id}>Read More</Link>
             </article>
           )
         })
