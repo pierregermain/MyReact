@@ -7,11 +7,11 @@ export const Portafolio = () => {
       <h1 className='heading'>Portafolio</h1>
 
       {
-        trabajos.map(trabajo => {
+        trabajos.map(trabajo => (
           <article>
             <h2>{trabajo.nombre}</h2>
           </article>
-        })
+        ))
       }
 
     </div>
