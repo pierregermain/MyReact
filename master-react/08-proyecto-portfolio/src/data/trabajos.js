@@ -14,9 +14,9 @@ export const trabajos = [
     'categoy': 'Desarrollo Web'
   },
   {
-    'id': 'twitter',
-    'nombre': 'Twitter',
-    'url': 'twitter.com',
+    'id': 'mastodon',
+    'nombre': 'Mastodon',
+    'url': 'mastodon.social',
     'techs': 'HTML, CSS',
     'categoy': 'Desarrollo Web'
   }
