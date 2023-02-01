@@ -4,20 +4,20 @@ export const trabajos = [
     'nombre': 'Arc Mediano',
     'url': 'arcmedio.example.com',
     'techs': 'HTML, CSS, JS, PHP, MySQL',
-    'categoy': 'Desarrollo Web'
+    'category': 'Desarrollo Web'
   },
   {
     'id': 'fb',
     'nombre': 'Facebook',
     'url': 'facebook.com',
     'techs': 'React',
-    'categoy': 'Desarrollo Web'
+    'category': 'Desarrollo Web'
   },
   {
     'id': 'mastodon',
     'nombre': 'Mastodon',
     'url': 'mastodon.social',
     'techs': 'HTML, CSS',
-    'categoy': 'Desarrollo Web'
+    'category': 'Desarrollo Web'
   }
 ];
