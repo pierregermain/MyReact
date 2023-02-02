@@ -3,6 +3,8 @@ import { Empleados } from './Empleados'
 
 export const Gestion = () => {
   
+  console.log('Hola mundo desde pantalla de gestión');
+
   const [nombre, setNombre] = useState("");
 
   const gestor = useRef();
