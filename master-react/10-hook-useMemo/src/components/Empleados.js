@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
-export const Empleados = () => {
+export const Empleados = ({page = 1}) => {
 
   const[empleados,setEmpleados] = useState();
 
   useEffect(() => {
-    conseguirEmpleados();
-  },[]);
+    conseguirEmpleados(page);
+  },[page]);
 
-  const conseguirEmpleados = async() => {
-    const url = "https://reqres.in/api/users?page=2";
+  const conseguirEmpleados = async(page) => {
+    const url = "https://reqres.in/api/users?page="+page;
     const peticion = await fetch(url);
     const {data: empleados} = await peticion.json();
 
@@ -24,6 +24,7 @@ export const Empleados = () => {
 
   return (
     <div>
+      <p>Mostrando página {page}</p>
       <ul className='empleados'>
         {
          empleados?.map(empleado => {
