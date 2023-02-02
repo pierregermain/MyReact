@@ -7,11 +7,15 @@ export const Tareas = () => {
 
   const guardarTareas = e => {
     e.preventDefault();
-
     setTareas(tarea => [...tarea, e.target.description.value] );
+  }
 
-    console.log(tareas)
-
+  const borrarTarea = id => {
+    // Filtrar tareas, quitamos la que tenga el indice de entrada 
+    let tareas_filter = tareas.filter ((tarea,indice) => indice !== id)
+    console.log(tareas_filter);
+    // Guardar array
+    setTareas(tareas_filter);
   }
 
   return (
@@ -25,10 +29,14 @@ export const Tareas = () => {
       <ul>
       {
         tareas.map((tarea,indice) => {
-          return <li key={indice}>{tarea}</li>
+          return (
+            <li key={indice}>
+              {tarea}
+              &nbsp;
+              <button onClick={() => borrarTarea(indice)}>x</button>
+            </li>)
         })
       }
-
       </ul>
     </div>
   )
