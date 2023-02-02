@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 export const Empleados = React.memo(({page = 1}) => {
 
-  const[empleados,setEmpleados] = useState();
+  const[empleados,setEmpleados] = useState([]);
 
   useEffect(() => {
     conseguirEmpleados(page);
@@ -27,7 +27,7 @@ export const Empleados = React.memo(({page = 1}) => {
       <p>Mostrando página {page}</p>
       <ul className='empleados'>
         {
-         empleados?.map(empleado => {
+         empleados.map(empleado => {
           return <li key={empleado.id}>{empleado.first_name} {empleado.last_name}</li>
         })}    
       </ul>
