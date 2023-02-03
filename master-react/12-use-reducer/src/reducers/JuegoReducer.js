@@ -6,6 +6,12 @@ export const JuegoReducer = (state = [], action) => {
 
     case "delete":
       return state.filter(juego => juego.id !== action.payload)
+
+    case "edit":
+      let index = state.findIndex(juego => juego.id === action.payload.id);
+      state[index] = action.payload;
+
+      return [...state]
       
     default:
       return state;

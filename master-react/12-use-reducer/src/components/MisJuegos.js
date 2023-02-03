@@ -39,6 +39,23 @@ export const MisJuegos = () => {
     dispatch(action);
   }
 
+  const editElement = (e,id) => {
+
+    let juego = {
+      id,
+      title: e.target.value,
+      description: e.target.value
+    };
+
+    const action = {
+      type: "edit",
+      payload: juego
+    };
+
+    dispatch(action);
+
+  }
+
   return (
     <div>
       <h1>Mis Videojuegos</h1>
@@ -47,6 +64,10 @@ export const MisJuegos = () => {
         {juegos.map(juego => (
           <li key={juego.id}>
             {juego.title} &nbsp;<button onClick={e => borraElemento(juego.id)}>x</button>
+            <input type="text" 
+              onBlur={ e => editElement(e, juego.id)} 
+              onKeyPress={ e => { if (e.key == "Enter") editElement(e, juego.id)}} 
+            />
           </li>
         ))
         }
