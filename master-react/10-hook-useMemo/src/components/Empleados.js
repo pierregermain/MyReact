@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export const Empleados = React.memo(({page = 1}) => {
+export const Empleados = React.memo(({page = 1, mensaje}) => {
 
   const[empleados,setEmpleados] = useState([]);
 
@@ -20,6 +20,8 @@ export const Empleados = React.memo(({page = 1}) => {
   }
 
   console.log('Hola mundo desde listado de empleados');
+
+  mensaje();
 
 
   return (
