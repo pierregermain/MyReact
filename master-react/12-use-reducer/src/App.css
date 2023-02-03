@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+
+.mis-juegos li {
+  list-style: none;
+}
+form {
+  margin-bottom: 50px;
+}
+
+form * {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  padding: 5px;
+}
