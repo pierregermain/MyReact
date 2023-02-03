@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import { JuegoReducer } from '../reducers/JuegoReducer';
 
 const init = () => {
