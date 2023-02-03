@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+#caja {
+  width: 200px;
+  height: 200px;
+  border: 1px solid greenyellow;
+  margin: 0 auto;
+}
