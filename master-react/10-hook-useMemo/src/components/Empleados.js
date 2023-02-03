@@ -6,6 +6,7 @@ export const Empleados = React.memo(({page = 1, mensaje}) => {
 
   useEffect(() => {
     conseguirEmpleados(page);
+    mensaje();
   },[page]);
 
   const conseguirEmpleados = async(page) => {
@@ -18,11 +19,6 @@ export const Empleados = React.memo(({page = 1, mensaje}) => {
     console.log(empleados);
     console.log('Se ha ejecutado la petición ajax');
   }
-
-  console.log('Hola mundo desde listado de empleados');
-
-  
-  mensaje();
 
   return (
     <div>
