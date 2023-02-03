@@ -1,4 +1,4 @@
-import React  from 'react'
+import React, { useMemo }  from 'react'
 import { useState } from 'react';
 
 export const Tareas = () => {
@@ -32,9 +32,11 @@ export const Tareas = () => {
     for (let i = 0; i <= acumulacion; i++){
       console.log('Ejecutando acumulacion');
     }
-
     return acumulacion
   }
+
+  // Esta tarea sólo se va a ejecutar cuando "contador" se haya modificado
+  const memoTareaPesada = useMemo(() => tareaPesada(contador),[contador]);
 
 
   return (
@@ -51,7 +53,7 @@ export const Tareas = () => {
         <button onClick={sumar}>Sumar</button>
         <button onClick={resetear}>Resetear</button>
 
-      <h3>Proceso largo: 2 exp({contador}) = {tareaPesada(contador)}</h3><p>(Número 2 elevado al contador)</p>
+      <h3>Proceso largo: 2 exp({contador}) = {memoTareaPesada}</h3><p>(Número 2 elevado al contador)</p>
 
 
       <h3>Lista tareas</h3>
