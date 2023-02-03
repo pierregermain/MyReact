@@ -4,6 +4,7 @@ import { useState } from 'react';
 export const Tareas = () => {
 
   const [tareas, setTareas] = useState([]);
+  const [contador,setContador] = useState(0);
 
   const guardarTareas = e => {
     e.preventDefault();
@@ -18,13 +19,41 @@ export const Tareas = () => {
     setTareas(tareas_filter);
   }
 
+  const sumar = e => {
+    setContador(contador + 1);
+  }
+
+  const resetear = e => {
+    setContador(0);
+  }
+
+  const tareaPesada = (acumulacion) => {
+    acumulacion = Math.pow(2,acumulacion);
+    for (let i = 0; i <= acumulacion; i++){
+      console.log('Ejecutando acumulacion');
+    }
+
+    return acumulacion
+  }
+
+
   return (
     <div className='tareas-container'>
+
       <h1>Mis tareas</h1>
       <form onSubmit={guardarTareas}>
         <input type="text" name="description" placeholder="Introduce tu tarea" />
         <input type="submit" value="Guardar" />
       </form>
+
+      <h3>Contador de tareas: {contador}
+      </h3>
+        <button onClick={sumar}>Sumar</button>
+        <button onClick={resetear}>Resetear</button>
+
+      <h3>Proceso largo: 2 exp({contador}) = {tareaPesada(contador)}</h3><p>(Número 2 elevado al contador)</p>
+
+
       <h3>Lista tareas</h3>
       <ul>
       {
