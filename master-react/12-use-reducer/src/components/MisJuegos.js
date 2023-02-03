@@ -1,6 +1,18 @@
-import React from 'react'
+import React, { useReducer } from 'react'
+import { JuegoReducer } from '../reducers/JuegoReducer';
+
+const init = () => {
+  return JSON.parse(localStorage.getItem("juegos")) || [];
+}
 
 export const MisJuegos = () => {
+
+  const [juegos, dispatch] = useReducer(JuegoReducer, [], init);
+
+  useEffect(() => {
+
+    localStorage.setItem("juegos", JSON.stringify(juegos));
+  }, [juegos])
 
   const conseguirDatosForm = e => {
     e.preventDefault();
@@ -28,7 +40,7 @@ export const MisJuegos = () => {
         <textarea name="description" placeholder='Descripción'></textarea>
         <input type="submit" ></input>
       </form>
-    
+
     </div>
   )
 }
