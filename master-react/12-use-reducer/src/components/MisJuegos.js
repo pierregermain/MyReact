@@ -18,7 +18,7 @@ export const MisJuegos = () => {
 
     let juego = {
       id: new Date().getTime(),
-      titulo: e.target.title.value,
+      title: e.target.title.value,
       description: e.target.description.value
     };
 
@@ -36,11 +36,14 @@ export const MisJuegos = () => {
   return (
     <div>
       <h1>Mis Videojuegos</h1>
-      <p>Número de Videjuegos</p>
+      <p>Número de Videjuegos: {juegos.length}</p>
       <ul className='mis-juegos'>
-        <li>Gta</li>
-        <li>Gta</li>
-        <li>Gta</li>
+        { juegos.map(juego => (
+          <li key={juego.id}>
+            {juego.title} &nbsp;<button>x</button>
+          </li>
+          ))
+        }
       </ul>
       <h3>Agregar Juego</h3>
       <form onSubmit={conseguirDatosForm}>
