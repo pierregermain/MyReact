@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Empleados } from './Empleados'
 
 export const Gestion = () => {
@@ -13,9 +13,9 @@ export const Gestion = () => {
     setNombre(gestor.current.value);
   }
 
-  const mostrarMensaje = () => {
+  const mostrarMensaje = useCallback(() => {
     console.log("Función mostrarMensaje");
-  }
+  },[pagina]);
 
 
 

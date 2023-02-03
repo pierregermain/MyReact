@@ -21,8 +21,8 @@ export const Empleados = React.memo(({page = 1, mensaje}) => {
 
   console.log('Hola mundo desde listado de empleados');
 
+  
   mensaje();
-
 
   return (
     <div>
