@@ -1,12 +1,14 @@
 import './App.css';
+import { EjemploComponent } from './components/EjemploComponent';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Hello World
-        </p>
+
+        <EjemploComponent></EjemploComponent>
+
+
       </header>
     </div>
   );
