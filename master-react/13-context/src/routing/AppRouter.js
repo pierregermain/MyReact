@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Routes, Route, NavLink, BrowserRouter } from 'react-router-dom';
 import { Inicio } from '../components/Inicio';
 import { Articulos } from '../components/Articulos';
 import { Acerca } from '../components/Acerca';
 import { Contacto } from '../components/Contacto';
 import { Login } from '../components/Login';
+import { PruebaContext } from '../context/PruebaContext';
 
 export const AppRouter = () => {
+
+  const { usuario, setUsuario } = useContext(PruebaContext);
   return (
     <BrowserRouter>
       {/* Menu Navegación */}
@@ -17,8 +20,23 @@ export const AppRouter = () => {
             <li><NavLink to="/articulos">Articulos</NavLink> </li>
             <li><NavLink to="/acerca-de">Acerca de</NavLink> </li>
             <li><NavLink to="/contacto">Contacto</NavLink> </li>
-            <li><NavLink to="/login">Login</NavLink> </li>
-            <li><NavLink to="/">Inicio</NavLink> </li>
+            {usuario.username !== null ?
+              (
+                <>
+                  <li><NavLink to="/">{usuario.username}</NavLink> </li>
+                  <li>
+                    <a href="#" onClick={e => {
+                      e.preventDefault();
+                      setUsuario({
+                        username: null,
+                        name: null
+                      })
+                    }}>Logout</a> </li>
+                </>
+              ) : (
+                <li><NavLink to="/login">Login</NavLink> </li>
+              )
+            }
           </ul>
         </nav>
       </header>
