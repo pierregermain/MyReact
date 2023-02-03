@@ -5,6 +5,7 @@ export const JuegoReducer = (state = [], action) => {
       return [...state, action.payload]
 
     case "delete":
+      return state.filter(juego => juego.id !== action.payload)
       
     default:
       return state;

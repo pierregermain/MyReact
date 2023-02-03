@@ -25,12 +25,18 @@ export const MisJuegos = () => {
     const action = {
       type: "create",
       payload: juego
-
     };
 
     dispatch(action);
+  }
 
-    console.log(juegos);
+  const borraElemento = id => {
+    const action = {
+      type: "delete",
+      payload: id
+    };
+
+    dispatch(action);
   }
 
   return (
@@ -38,11 +44,11 @@ export const MisJuegos = () => {
       <h1>Mis Videojuegos</h1>
       <p>Número de Videjuegos: {juegos.length}</p>
       <ul className='mis-juegos'>
-        { juegos.map(juego => (
+        {juegos.map(juego => (
           <li key={juego.id}>
-            {juego.title} &nbsp;<button>x</button>
+            {juego.title} &nbsp;<button onClick={e => borraElemento(juego.id)}>x</button>
           </li>
-          ))
+        ))
         }
       </ul>
       <h3>Agregar Juego</h3>
