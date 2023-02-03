@@ -10,7 +10,6 @@ export const MisJuegos = () => {
   const [juegos, dispatch] = useReducer(JuegoReducer, [], init);
 
   useEffect(() => {
-
     localStorage.setItem("juegos", JSON.stringify(juegos));
   }, [juegos])
 
@@ -22,7 +21,16 @@ export const MisJuegos = () => {
       titulo: e.target.title.value,
       description: e.target.description.value
     };
-    console.log(juego);
+
+    const action = {
+      type: "create",
+      payload: juego
+
+    };
+
+    dispatch(action);
+
+    console.log(juegos);
   }
 
   return (
