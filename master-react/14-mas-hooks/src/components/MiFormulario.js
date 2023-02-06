@@ -25,26 +25,29 @@ export const MiFormulario = () => {
     setFormulario(curso);
   }
 
+  const cambiado = ({target}) => {
+    const {name,value} = target;
 
-
+    setFormulario({...formulario, [name]:value})
+  }
 
   return (
     <div>
 
       <p>Formulario para guardar un curso</p>
-      <p>Curso guardado:</p>
+      <p>Curso guardado: <strong>{formulario.title}</strong></p>
 
       <p className='form-list'>{JSON.stringify(formulario)}</p>
 
       <form onSubmit={enviado}>
         
-        <input type="text" name="title" placeholder='Titulo:' />
-        <input type="number" name="year" placeholder='Año publicación:' />
-        <textarea name="description" placeholder="Descripción" />
-        <input type="text" name="author" placeholder='Autor:' />
-        <input type="email" name="email" placehoder="Email:" />
+        <input type="text" name="title" onChange={cambiado} placeholder='Titulo:' />
+        <input type="number" name="year" onChange={cambiado} placeholder='Año publicación:' />
+        <textarea name="description" onChange={cambiado} placeholder="Descripción" />
+        <input type="text" name="author" onChange={cambiado} placeholder='Autor:' />
+        <input type="email" name="email" onChange={cambiado} placehoder="Email:" />
         
-        <input type="submit" value="send"></input>
+        <input type="submit" value="Send"></input>
 
       </form>
 
