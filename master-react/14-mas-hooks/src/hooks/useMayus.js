@@ -1,18 +1,21 @@
+import { useState } from 'react'
 export const useMayus = (text) => {
 
+  const [myText, setMyText] = useState(text);
+
   const mayusculas = (valor = "") => {
-    return text.toUpperCase();
+    setMyText(text.toUpperCase());
   }
 
   const minusculas = () => {
-    return text.toLowerCase();
+    setMyText(text.toLowerCase());
   }
   const concatenar = (valor = "") => {
-    return text + valor;
-
+    setMyText(text + valor);
   }
 
   return {
+    estado: myText,
     mayusculas,
     minusculas,
     concatenar

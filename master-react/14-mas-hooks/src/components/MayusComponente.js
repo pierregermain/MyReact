@@ -3,22 +3,17 @@ import { useMayus } from '../hooks/useMayus'
 
 export const MayusComponente = () => {
 
-  const [myText, setMyText] = useState("Pierre G");
 
-  const {mayusculas, minusculas, concatenar} = useMayus(myText);
-
-  console.log(mayusculas());
-  console.log(minusculas());
-  console.log(concatenar("kolm"));
+  const {estado, mayusculas, minusculas, concatenar} = useMayus("PieR");
 
   return (
     <div>
-      {myText}
+      <h2>{estado}</h2>
 
-      <button onClick={ e => {
-        setMyText(mayusculas());
-      }}>Mayus</button>
-      
+      <button onClick={mayusculas}>Mayus</button>
+      <button onClick={minusculas}>Minus</button>
+      <button onClick={e => concatenar('ito')}>Concat</button>
+
     </div>
   )
 }
