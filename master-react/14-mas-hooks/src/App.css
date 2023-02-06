@@ -23,6 +23,12 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.App-header2, .App-header3 {
+  display: flex;
+}
+.App-header2 .section, .App-header3 .section {
+  margin: 10px;
+}
 
 .App-link {
   color: #61dafb;
