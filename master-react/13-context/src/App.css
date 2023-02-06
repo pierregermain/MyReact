@@ -46,3 +46,14 @@ body {
   margin: 25px auto;
   padding: 25px;
 }
+
+.login-page h1 {
+  display: block;
+  margin: 15px;
+  padding: 0;
+}
+.login-form input {
+  display: block;
+  margin: 15px;
+  padding: 15px;
+}
