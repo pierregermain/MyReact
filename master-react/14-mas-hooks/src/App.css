@@ -46,6 +46,7 @@
 .section {
   border: 1px solid lightgreen;
   margin: 10px auto;
+  padding: 10px;
 }
 
 .form-list {
