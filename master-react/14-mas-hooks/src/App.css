@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.section {
+  border: 1px solid lightgreen;
+  margin: 10px auto;
+}
+
+.form-list {
+  width: 780px;
+}
+.form-list{
+  white-space: pre-line;
+  width: 95%;
+  margin: 0 auto;
+}
+
+form input, form textarea{
+  display: block;
+  margin: 15px auto;
+  padding: 10px;
+}
