@@ -5,17 +5,22 @@ export const MiFormulario = () => {
 
   const [formulario, setFormulario] = useState({});
 
+  const serializeForm = (form) => {
+
+    const formData = new FormData(form);
+    const formObject = {};
+
+    for(let [name,value] of formData){
+      formObject[name] = value;
+    }
+
+    return formObject;
+  }
+
   const enviado = (e) => {
     e.preventDefault();
-    //console.log(e.target);
 
-    let curso = {
-      title: e.target.title.value,
-      year:e.target.year.value,
-      description:e.target.description.value,
-      author:e.target.author.value,
-      email:e.target.email.value
-    }
+    let curso = serializeForm(e.target);
 
     setFormulario(curso);
   }

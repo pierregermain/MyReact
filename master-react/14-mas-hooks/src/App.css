@@ -45,10 +45,11 @@
 .form-list {
   width: 780px;
 }
-.form-list{
+.form-list pre{
   white-space: pre-line;
   width: 95%;
   margin: 0 auto;
+  font-size: 12px;
 }
 
 form input, form textarea{
