@@ -1,4 +1,5 @@
 import './App.css';
+import { MayusComponente } from './components/MayusComponente';
 import { UseIdComponent } from './components/UseIdComponent';
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <UseIdComponent></UseIdComponent>
+        <MayusComponente></MayusComponente>
       </header>
     </div>
   );
