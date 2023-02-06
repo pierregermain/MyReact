@@ -34,7 +34,7 @@ export const MiFormulario = () => {
       <p>Formulario para guardar un curso</p>
       <p>Curso guardado:</p>
 
-      <pre className='form-list'>{JSON.stringify(formulario)}</pre>
+      <p className='form-list'>{JSON.stringify(formulario)}</p>
 
       <form onSubmit={enviado}>
         
