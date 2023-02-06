@@ -55,3 +55,7 @@ form input, form textarea{
   margin: 15px auto;
   padding: 10px;
 }
+.enviado {
+  background-color: green;
+  color: white;
+}
