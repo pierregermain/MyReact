@@ -4,6 +4,7 @@ const router = express.Router();
 const articleController = require("../controllers/articleController");
 
 // Rutas
-router.get("/ruta-de-prueba", articleController.test);
+router.get("/article", articleController.article);
+router.get("/curso", articleController.curso);
 
 module.exports = router;
