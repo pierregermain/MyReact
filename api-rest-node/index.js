@@ -25,7 +25,7 @@ app.get("/probando",(req,res) => {
 
   console.log("*** Se ha ejecutado el endpoint probando ****");
 
-  return res.status(200).send({
+  return res.status(200).json({
     curso: "Master en React",
     autor: "Victor"
   });
