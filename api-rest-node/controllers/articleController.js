@@ -17,20 +17,23 @@ const curso = (req, res) => {
 }
 
 const read = (req, res) => {
-  let consulta = Article.find({})
-                        .sort({date: 1}).exec((error, articles) => {
-    if (error || !articles) {
-      return res.status(404).json({
-        status: "error",
-        mensaje: "No hay datos que listar",
-      });
-    }
+  let consulta = Article.find({});
 
-    return res.status(200).send({
-      status: "success",
-      articles
-    })
-  });
+  consulta.sort({ date: -1 })
+    .exec((error, articles) => {
+
+      if (error || !articles) {
+        return res.status(404).json({
+          status: "error",
+          mensaje: "No hay datos que listar",
+        });
+      }
+
+      return res.status(200).send({
+        status: "success",
+        articles
+      })
+    });
 }
 
 const create = (req, res) => {
