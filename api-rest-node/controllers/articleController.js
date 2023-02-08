@@ -16,6 +16,31 @@ const curso = (req, res) => {
   );
 }
 
+const remove = (req, res) => {
+  // Recoger id por la url
+  let id = req.params.id;
+
+  Article.findOneAndDelete({ _id: id }, (error, articuloBorrado) => {
+    // Si no existe devolver error
+    if (error || !articuloBorrado) {
+      return res.status(500).json({
+        status: "error",
+        mensaje: "No existe el artículo a ser borrado",
+      });
+    }
+    return res.status(200).json({
+      status: "success",
+      mensaje: "Artículo borrado",
+      id
+    });
+  })
+
+
+
+
+
+}
+
 const readone = (req, res) => {
   // Recoger id por la url
   let id = req.params.id;
@@ -23,20 +48,20 @@ const readone = (req, res) => {
   // Buscar artículo
   Article.findById(id, (error, article) => {
     // Si no existe devolver error
-      if (error || !article) {
-        return res.status(404).json({
-          status: "error",
-          mensaje: "No existe el artículo buscado",
-        });
-      }
+    if (error || !article) {
+      return res.status(404).json({
+        status: "error",
+        mensaje: "No existe el artículo buscado",
+      });
+    }
 
     // Si existe devolver resultado
 
-      return res.status(200).json({
-        status: "success",
-        parameter: req.params.id,
-        article
-      });
+    return res.status(200).json({
+      status: "success",
+      parameter: req.params.id,
+      article
+    });
 
   });
 
@@ -129,5 +154,6 @@ module.exports = {
   curso,
   create,
   read,
-  readone
+  readone,
+  remove
 }
