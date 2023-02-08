@@ -16,6 +16,22 @@ const curso = (req, res) => {
   );
 }
 
+const read = (req, res) => {
+  let consulta = Article.find({}).exec((error, articles) => {
+    if (error || !articles) {
+      return res.status(404).json({
+        status: "error",
+        mensaje: "No hay datos que listar",
+      });
+    }
+
+    return res.status(200).send({
+      status: "success",
+      articles
+    })
+  });
+}
+
 const create = (req, res) => {
 
   // Recoger parámetros por POST a guardar
@@ -74,5 +90,6 @@ const create = (req, res) => {
 module.exports = {
   article,
   curso,
-  create
+  create,
+  read
 }
