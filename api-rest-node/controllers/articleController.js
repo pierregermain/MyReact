@@ -13,8 +13,15 @@ const curso = (req,res) => {
   );
 }
 
+const create = (req,res) => {
+  return res.status(200).json({
+    mensaje: "Articulo creado"
+  })
+}
+
 
 module.exports = {
   article,
-  curso
+  curso,
+  create
 }
