@@ -1,7 +1,7 @@
 const validator = require("validator");
 const Article = require("../models/Article");
 
-const article = (req, res) => {
+const hello = (req, res) => {
   return res.status(200).json({
     mensaje: "Hello World"
   });
@@ -16,10 +16,36 @@ const curso = (req, res) => {
   );
 }
 
+const readone = (req, res) => {
+  // Recoger id por la url
+  let id = req.params.id;
+
+  // Buscar artículo
+  Article.findById(id, (error, article) => {
+    // Si no existe devolver error
+      if (error || !article) {
+        return res.status(404).json({
+          status: "error",
+          mensaje: "No existe el artículo buscado",
+        });
+      }
+
+    // Si existe devolver resultado
+
+      return res.status(200).json({
+        status: "success",
+        parameter: req.params.id,
+        article
+      });
+
+  });
+
+}
+
 const read = (req, res) => {
   let consulta = Article.find({});
 
-  if(req.params.last){
+  if (req.params.last) {
     consulta.limit(req.params.last);
   }
 
@@ -99,8 +125,9 @@ const create = (req, res) => {
 }
 
 module.exports = {
-  article,
+  hello,
   curso,
   create,
-  read
+  read,
+  readone
 }
