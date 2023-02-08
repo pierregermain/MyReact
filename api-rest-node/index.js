@@ -21,18 +21,7 @@ const articleRoute = require("./routes/articleRoute");
 // Carga de Rutas
 app.use("/api",articleRoute);
 
-
 // Rutas Hardcodeadas
-app.get("/probando", (req, res) => {
-
-  return res.status(200).json(
-    {
-      curso: "Master en React",
-      autor: "Victor"
-    }
-  );
-});
-
 app.get("/", (req, res) => {
   return res.status(200).send("<h1>Hola Mundo</h1>");
 });
