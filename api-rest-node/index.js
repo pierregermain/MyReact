@@ -25,7 +25,7 @@ app.get("/probando", (req, res) => {
 
   console.log("*** Se ha ejecutado el endpoint probando ****");
 
-  return res.status(200).json(
+  return res.status(200).json([
     {
       curso: "Master en React",
       autor: "Victor"
@@ -33,8 +33,8 @@ app.get("/probando", (req, res) => {
     {
       curso: "Master en React",
       autor: "Victor"
-    }
-  );
+    },
+  ]);
 });
 
 // Crear servidor y escuchar peticiones http
