@@ -36,6 +36,12 @@ app.get("/probando", (req, res) => {
     },
   ]);
 });
+app.get("/", (req, res) => {
+
+  console.log("*** Se ha ejecutado el endpoint / ****");
+
+  return res.status(200).send("<h1>Hola Mundo</h1>");
+});
 
 // Crear servidor y escuchar peticiones http
 app.listen(puerto, () => {
