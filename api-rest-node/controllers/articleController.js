@@ -19,7 +19,10 @@ const curso = (req, res) => {
 const read = (req, res) => {
   let consulta = Article.find({});
 
-  consulta.limit(3);
+  if(req.params.last){
+    consulta.limit(req.params.last);
+  }
+
 
   consulta.sort({ date: -1 })
     .exec((error, articles) => {
@@ -33,6 +36,7 @@ const read = (req, res) => {
 
       return res.status(200).send({
         status: "success",
+        parameter: req.params.last,
         length: articles.length,
         articles
       })
