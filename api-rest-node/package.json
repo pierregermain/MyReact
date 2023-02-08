@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "enable": "sudo sysctl fs.inotify.max_user_watches=582222 && sudo sysctl -p",
+    "max_user_watches": "sudo sysctl fs.inotify.max_user_watches=582222 && sudo sysctl -p",
     "start": "nodemon index.js"
   },
   "author": "pierre",
