@@ -1,4 +1,5 @@
 const validator = require("validator");
+const Article = require("../models/Article");
 
 const article = (req, res) => {
   return res.status(200).json({
@@ -24,10 +25,10 @@ const create = (req, res) => {
   try {
 
     let validar_title = !validator.isEmpty(parametros.title) &&
-                          validator.isLength(parametros.title, {min: 5, max: 256});
+      validator.isLength(parametros.title, { min: 5, max: 256 });
     let validar_content = !validator.isEmpty(parametros.content);
 
-    if(!validar_content || !validar_title) {
+    if (!validar_content || !validar_title) {
       throw new Error("No se ha validado la información");
     }
 
@@ -40,21 +41,35 @@ const create = (req, res) => {
 
   }
 
+  // Crear el objeto a guardar sin asignar valores
+  //const article = new Article(parametros);
 
+  // Asignar valores a objeto basado en el modelo (manual)
+  //article.title = parametros.title;
 
-  // Crear el objeto a guardar
-
-  // Asignar valores a objeto basado en el modelo
+  // Crear el objeto a guardar y asignar valores de manera automática
+  const article = new Article(parametros);
 
   // Guardar el artículo en la db
+  article.save((error, articuloGuardado) => {
 
-  // Devolver resultados
-  return res.status(200).json({
-    mensaje: "Articulo creado",
-    parametros
-  })
+    if (error || !articuloGuardado) {
+      return res.status(400).json({
+        status: "error",
+        mensaje: "No ha sido posible guardar el artículo en la db",
+      })
+    }
+
+    // Devolver resultados
+    return res.status(200).json({
+      status: "success",
+      mensaje: "Artículo creado correctamente",
+      article: articuloGuardado,
+    });
+
+  });
+
 }
-
 
 module.exports = {
   article,
