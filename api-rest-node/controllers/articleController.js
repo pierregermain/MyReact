@@ -33,13 +33,8 @@ const remove = (req, res) => {
       mensaje: "Artículo borrado",
       id
     });
-  })
-
-
-
-
-
-}
+  });
+};
 
 const readone = (req, res) => {
   // Recoger id por la url
@@ -64,8 +59,55 @@ const readone = (req, res) => {
     });
 
   });
+};
+
+const edit = (req, res) => {
+  // Recoger id por la url
+  let id = req.params.id;
+
+  // Recoger datos del body
+  let parametros = req.body;
+
+  // Validar los datos con el paquete validator
+  try {
+
+    let validar_title = !validator.isEmpty(parametros.title) &&
+      validator.isLength(parametros.title, { min: 5, max: 256 });
+    let validar_content = !validator.isEmpty(parametros.content);
+
+    if (!validar_content || !validar_title) {
+      throw new Error("No se ha validado la información");
+    }
+
+  } catch (error) {
+
+    return res.status(400).json({
+      status: "error",
+      mensaje: "Error al validar los datos!",
+    })
+
+  }
+
+
+  // Buscar artículo
+  Article.findOneAndUpdate({_id: id}, req.body,{new: true},(error,articuloActualizado) => {
+
+      if (error || !articuloActualizado) {
+        return res.status(500).json({
+          status: "error",
+          mensaje: "No hay articulo que editar",
+        });
+      }
+
+      return res.status(200).send({
+        status: "success",
+        articulo: articuloActualizado,
+      })
+
+  });
 
 }
+
 
 const read = (req, res) => {
   let consulta = Article.find({});
@@ -155,5 +197,6 @@ module.exports = {
   create,
   read,
   readone,
-  remove
+  remove,
+  edit
 }

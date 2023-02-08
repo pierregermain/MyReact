@@ -9,6 +9,7 @@ router.get("/curso", articleController.curso);
 router.get("/read/:last?", articleController.read);
 router.get("/readone/:id?", articleController.readone);
 router.delete("/delete/:id?", articleController.remove);
+router.put("/edit/:id?", articleController.edit);
 
 // Rutas Post (crear datos)
 router.post("/create", articleController.create);
