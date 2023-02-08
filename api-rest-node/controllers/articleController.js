@@ -17,7 +17,8 @@ const curso = (req, res) => {
 }
 
 const read = (req, res) => {
-  let consulta = Article.find({}).exec((error, articles) => {
+  let consulta = Article.find({})
+                        .sort({date: -1}).exec((error, articles) => {
     if (error || !articles) {
       return res.status(404).json({
         status: "error",
