@@ -1,4 +1,4 @@
-const { connection} = require("./database/connection");
+const { connection } = require("./database/connection");
 const express = require("express");
 const cors = require("cors");
 
@@ -21,17 +21,23 @@ app.use(express.json());
 // Crear ruta de prueba 
 // req es request
 // res es respuesta
-app.get("/probando",(req,res) => {
+app.get("/probando", (req, res) => {
 
   console.log("*** Se ha ejecutado el endpoint probando ****");
 
-  return res.status(200).json({
-    curso: "Master en React",
-    autor: "Victor"
-  });
+  return res.status(200).json(
+    {
+      curso: "Master en React",
+      autor: "Victor"
+    },
+    {
+      curso: "Master en React",
+      autor: "Victor"
+    }
+  );
 });
 
 // Crear servidor y escuchar peticiones http
 app.listen(puerto, () => {
-  console.log("Servidor corriendo en el puerto:"+puerto);
+  console.log("Servidor corriendo en el puerto:" + puerto);
 });
