@@ -19,6 +19,8 @@ const curso = (req, res) => {
 const read = (req, res) => {
   let consulta = Article.find({});
 
+  consulta.limit(3);
+
   consulta.sort({ date: -1 })
     .exec((error, articles) => {
 
@@ -31,6 +33,7 @@ const read = (req, res) => {
 
       return res.status(200).send({
         status: "success",
+        length: articles.length,
         articles
       })
     });
