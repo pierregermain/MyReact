@@ -179,11 +179,11 @@ const uploadImage = (req, res) => {
   // Configurar multer (se hace desde el articleRouter.js)
 
   // Recoger el fichero de imágen
-  if(!req.file && !req.files){
-      return res.status(400).json({
-        status: "error",
-        message: "No se ha subido ningún fichero"
-      })
+  if (!req.file && !req.files) {
+    return res.status(400).json({
+      status: "error",
+      message: "No se ha subido ningún fichero"
+    })
   }
 
   // Nombre del fichero
@@ -203,9 +203,27 @@ const uploadImage = (req, res) => {
     })
   }
   else {
-    return res.status(200).json({
-      status: "success",
-      files: req.file,
+
+    // Actualizar artículo
+
+    // Recoger id por la url
+    let id = req.params.id;
+
+    // Buscar artículo
+    Article.findOneAndUpdate({ _id: id }, {image: req.file.filename},{ new: true }, (error, articuloActualizado) => {
+
+      if (error || !articuloActualizado) {
+        return res.status(500).json({
+          status: "error",
+          mensaje: "No hay articulo que editar",
+        });
+      }
+
+      return res.status(200).send({
+        status: "success",
+        articulo: articuloActualizado,
+        file: req.file
+      })
     });
   }
 }
