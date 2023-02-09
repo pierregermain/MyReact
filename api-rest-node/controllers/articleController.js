@@ -246,6 +246,37 @@ const image = (req, res) => {
   })
 }
 
+const search = (req, res) => {
+  // Sacar el string de búsqueda
+  let search = req.params.search;
+
+  // Find a la db con OR
+  Article.find({
+    "$or": [
+      { "title": { "$regex": search, "$options": "i" } },
+      { "content": { "$regex": search, "$options": "i" } }
+    ]
+  })
+    // Ordenar 
+    .sort({ date: -1 })
+    // Ejecutar consulta
+    .exec((error, articulosEncontrados) => {
+      if (error || !articulosEncontrados || articulosEncontrados.length <= 0) {
+        return res.status(404).json({
+          status: "error",
+          mensaje: "No se han encontrado artículos"
+        })
+      }
+      else {
+        // Devolver resultados
+        return res.status(200).json({
+          status: "success",
+          articulosEncontrados
+        })
+      }
+    })
+};
+
 module.exports = {
   hello,
   curso,
@@ -255,5 +286,6 @@ module.exports = {
   remove,
   edit,
   uploadImage,
-  image
+  image,
+  search
 }
