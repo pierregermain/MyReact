@@ -1,5 +1,5 @@
-const validator = require("validator");
 const Article = require("../models/Article");
+const {validarArticulo} = require("../helpers/validar");
 
 const hello = (req, res) => {
   return res.status(200).json({
@@ -70,39 +70,30 @@ const edit = (req, res) => {
 
   // Validar los datos con el paquete validator
   try {
-
-    let validar_title = !validator.isEmpty(parametros.title) &&
-      validator.isLength(parametros.title, { min: 5, max: 256 });
-    let validar_content = !validator.isEmpty(parametros.content);
-
-    if (!validar_content || !validar_title) {
-      throw new Error("No se ha validado la información");
-    }
+    validarArticulo(parametros);
 
   } catch (error) {
-
     return res.status(400).json({
       status: "error",
-      mensaje: "Error al validar los datos!",
-    })
-
+      mensaje: "Error al validar los datos al editar el artículo",
+    });
   }
 
 
   // Buscar artículo
-  Article.findOneAndUpdate({_id: id}, req.body,{new: true},(error,articuloActualizado) => {
+  Article.findOneAndUpdate({ _id: id }, req.body, { new: true }, (error, articuloActualizado) => {
 
-      if (error || !articuloActualizado) {
-        return res.status(500).json({
-          status: "error",
-          mensaje: "No hay articulo que editar",
-        });
-      }
+    if (error || !articuloActualizado) {
+      return res.status(500).json({
+        status: "error",
+        mensaje: "No hay articulo que editar",
+      });
+    }
 
-      return res.status(200).send({
-        status: "success",
-        articulo: articuloActualizado,
-      })
+    return res.status(200).send({
+      status: "success",
+      articulo: articuloActualizado,
+    })
 
   });
 
@@ -143,22 +134,13 @@ const create = (req, res) => {
 
   // Validar los datos con el paquete validator
   try {
-
-    let validar_title = !validator.isEmpty(parametros.title) &&
-      validator.isLength(parametros.title, { min: 5, max: 256 });
-    let validar_content = !validator.isEmpty(parametros.content);
-
-    if (!validar_content || !validar_title) {
-      throw new Error("No se ha validado la información");
-    }
+    validarArticulo(parametros);
 
   } catch (error) {
-
     return res.status(400).json({
       status: "error",
-      mensaje: "Error al validar los datos",
-    })
-
+      mensaje: "Error al validar los datos al crear el artículo",
+    });
   }
 
   // Crear el objeto a guardar sin asignar valores
