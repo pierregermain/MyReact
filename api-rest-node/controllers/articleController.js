@@ -175,9 +175,10 @@ const create = (req, res) => {
 
 const uploadImage = (req, res) => {
   
-  // Configurar multer
+  // Configurar multer (se hace desde el articleRouter.js)
 
   // Recoger el fichero de imágen
+  console.log(req.file);
 
   // Nombre del fichero
 
@@ -191,7 +192,7 @@ const uploadImage = (req, res) => {
 
   return res.status(200).json({
     status: "success",
-    mensaje: "Imágen creado correctamente",
+    files: req.file,
   });
 
 
