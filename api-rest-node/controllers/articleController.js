@@ -1,3 +1,4 @@
+const fs = require("fs");
 const Article = require("../models/Article");
 const { validarArticulo } = require("../helpers/validar");
 
@@ -174,28 +175,39 @@ const create = (req, res) => {
 }
 
 const uploadImage = (req, res) => {
-  
+
   // Configurar multer (se hace desde el articleRouter.js)
 
   // Recoger el fichero de imágen
-  console.log(req.file);
+  if(!req.file && !req.files){
+      return res.status(400).json({
+        status: "error",
+        message: "No se ha subido ningún fichero"
+      })
+  }
 
   // Nombre del fichero
+  let archivo = req.file.originalname;
 
   // Extensión del fichero
+  let archivoSplit = archivo.split("\.");
+  let extension = archivoSplit[1];
 
-  // Comprobar extensión
-
-
-
-
-
-  return res.status(200).json({
-    status: "success",
-    files: req.file,
-  });
-
-
+  // Borrar archivo si no es jpg ni png
+  if (extension != 'png' && extension != 'jpg' && extension != 'jpeg') {
+    fs.unlink(req.file.path, (error) => {
+      return res.status(400).json({
+        status: "error",
+        message: "El fichero subido tiene que ser png o jpg"
+      })
+    })
+  }
+  else {
+    return res.status(200).json({
+      status: "success",
+      files: req.file,
+    });
+  }
 }
 
 module.exports = {
