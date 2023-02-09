@@ -1,5 +1,5 @@
 const Article = require("../models/Article");
-const {validarArticulo} = require("../helpers/validar");
+const { validarArticulo } = require("../helpers/validar");
 
 const hello = (req, res) => {
   return res.status(200).json({
@@ -173,6 +173,30 @@ const create = (req, res) => {
 
 }
 
+const uploadImage = (req, res) => {
+  
+  // Configurar multer
+
+  // Recoger el fichero de imágen
+
+  // Nombre del fichero
+
+  // Extensión del fichero
+
+  // Comprobar extensión
+
+
+
+
+
+  return res.status(200).json({
+    status: "success",
+    mensaje: "Imágen creado correctamente",
+  });
+
+
+}
+
 module.exports = {
   hello,
   curso,
@@ -180,5 +204,6 @@ module.exports = {
   read,
   readone,
   remove,
-  edit
+  edit,
+  uploadImage
 }
