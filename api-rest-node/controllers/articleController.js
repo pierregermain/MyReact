@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 const Article = require("../models/Article");
 const { validarArticulo } = require("../helpers/validar");
 
@@ -210,7 +211,7 @@ const uploadImage = (req, res) => {
     let id = req.params.id;
 
     // Buscar artículo
-    Article.findOneAndUpdate({ _id: id }, {image: req.file.filename},{ new: true }, (error, articuloActualizado) => {
+    Article.findOneAndUpdate({ _id: id }, { image: req.file.filename }, { new: true }, (error, articuloActualizado) => {
 
       if (error || !articuloActualizado) {
         return res.status(500).json({
@@ -228,6 +229,23 @@ const uploadImage = (req, res) => {
   }
 }
 
+const image = (req, res) => {
+  let fichero = req.params.file;
+  let ruta_fisica = "./images/articles/" + fichero;
+
+  fs.stat(ruta_fisica, (error, existe) => {
+    if (existe) {
+      return res.sendFile(path.resolve(ruta_fisica));
+    }
+    else {
+      return res.status(404).json({
+        status: "error",
+        mensaje: "No se encontró fichero en la ruta especificada",
+      });
+    }
+  })
+}
+
 module.exports = {
   hello,
   curso,
@@ -236,5 +254,6 @@ module.exports = {
   readone,
   remove,
   edit,
-  uploadImage
+  uploadImage,
+  image
 }

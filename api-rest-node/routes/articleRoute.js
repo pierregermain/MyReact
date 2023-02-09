@@ -23,6 +23,7 @@ router.get("/curso", articleController.curso);
 // Rutas GET (obtener datos)
 router.get("/read/:last?", articleController.read);
 router.get("/readone/:id?", articleController.readone);
+router.get("/image/:file", articleController.image);
 
 // Rutas Delete (borrar datos)
 router.delete("/delete/:id?", articleController.remove);
