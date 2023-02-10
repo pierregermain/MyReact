@@ -2,6 +2,8 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <div>Footer</div>
+    <footer className="footer">
+      Máster en React
+    </footer>
   )
 }
