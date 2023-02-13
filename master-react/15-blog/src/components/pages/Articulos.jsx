@@ -1,32 +1,37 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { PeticionAjax } from '../../helpers/PeticionAjax';
 import { Global } from '../../helpers/Global';
 
 export const Articulos = () => {
 
   const [articulos, setArticulos] = useState([]);
+  const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     conseguirArticulos();
   }, []);
 
   const conseguirArticulos = async () => {
-    const url = Global.urlRead;
-    let peticion = await fetch(url, {
-      method: "GET"
-    });
-    let datos = await peticion.json();
 
-    if (datos.status === "success") {
-      setArticulos(datos.articles);
+    const {data, cargando} = await PeticionAjax(Global.urlRead, "GET");
+
+    //console.log(data);
+    //console.log(cargando);
+
+    if(data.status === "success"){
+      setArticulos(data.articles);
     }
+
+    setCargando(false);
+
   };
 
   return (
     <>
+    { cargando ? "Cargando..." : ""}
       {
         articulos.length >= 1 ?
-
           (
             articulos.map(articulo => {
               return (
@@ -44,7 +49,7 @@ export const Articulos = () => {
               );
             })
           )
-          :
+          : 
           (
             <h1> No hay artículos</h1>
           )
