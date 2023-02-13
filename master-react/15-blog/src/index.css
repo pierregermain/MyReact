@@ -19,7 +19,7 @@ body{
         "content content content lateral"
         "footer footer footer footer"
     ;
-    grid-template-rows: 100px 70px auto 70px;
+    grid-template-rows: 0px 70px auto 70px;
 }
 
 /*ESTILOS CABECERA*/
@@ -94,6 +94,7 @@ body{
 /*ESTILOS PARA EL CONTENIDO PRINCIPAL*/
 
 .content{
+    min-height: 820px;
     grid-area: content;
     background: #f6f7f9;
 

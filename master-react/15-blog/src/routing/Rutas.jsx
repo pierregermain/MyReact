@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import { Header } from "../components/layout/Header";
 import { Nav } from "../components/layout/Nav";
 import { Sidebar } from "../components/layout/Sidebar";
 import { Articulos } from "../components/pages/Articulos";
+import { Crear } from "../components/pages/Crear";
 import { Inicio } from "../components/pages/Inicio";
 import { Footer } from "../components/layout/Footer";
 
@@ -12,7 +12,6 @@ export const Rutas = () => {
     <BrowserRouter>
 
       {/* Layout*/}
-      <Header />
       <Nav />
 
       {/* Contenido central */}
@@ -22,6 +21,7 @@ export const Rutas = () => {
           <Route path="/" element={<Inicio />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/articulos" element={<Articulos />} />
+          <Route path="/crear" element={<Crear />} />
           <Route path="/*" element={<h1>Error 404</h1>} />
         </Routes>
       </section>
