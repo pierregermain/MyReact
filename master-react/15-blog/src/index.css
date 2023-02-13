@@ -99,9 +99,9 @@ body{
     background: #f6f7f9;
 
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: initial;
     flex-grow: 1;
 }
 
@@ -115,9 +115,27 @@ body{
     padding-bottom: 60px;
     padding-left: 25px;
     padding-right: 25px;
+
+    display: flex;
+    max-height: 225px;
+}
+.articulo-item .mask {
+    width: 30%;
+    overflow: hidden;
+    padding: 10px;
+}
+.articulo-item .mask img {
+    width: 90%;
 }
 
-button,
+.articulo-item .datos {
+    text-align: left;
+}
+.articulo-item .edit {
+    margin-right: 20px;
+}
+
+button,.button,
 input[type="submit"],
 input[type="button"]{
     width: 100px;
@@ -129,6 +147,7 @@ input[type="button"]{
     border-radius: 3px;
     margin-top:15px;
     text-transform: capitalize;
+    text-decoration: none;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
@@ -141,6 +160,18 @@ input[type="button"]{
 
 .articulo-item .delete:hover{
     background: #9b0202;
+}
+
+.jumbo {
+    background-color: white;
+    border-radius: 5px;
+    width: 80%;
+    padding: 55px;
+    margin: 25px auto;
+}
+.jumbo button {
+    display: block;
+    margin-top: 40px;
 }
 
 /*ESTILOS BARRA LATERAL*/
