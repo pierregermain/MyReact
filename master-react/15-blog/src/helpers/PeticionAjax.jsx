@@ -22,7 +22,7 @@ export const PeticionAjax = async (url, method, dataSave = "") => {
     }
   }
 
-  const peticion = await fetch(url);
+  const peticion = await fetch(url, opciones);
   const data = await peticion.json();
 
   cargando = false;
