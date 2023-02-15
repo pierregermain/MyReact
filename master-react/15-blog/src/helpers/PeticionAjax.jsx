@@ -6,9 +6,14 @@ export const PeticionAjax = async (url, method, dataSave = "", archivos = false)
     method: "GET"
   }
 
-  if (method == "GET" || method == "DELETE") {
+  if (method == "GET") {
     opciones = {
       method: "GET"
+    }
+  }
+  if (method == "DELETE") {
+    opciones = {
+      method: "DELETE"
     }
   }
 

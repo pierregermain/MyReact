@@ -17,9 +17,6 @@ export const Articulos = () => {
 
     const { data, cargando } = await PeticionAjax(Global.urlRead, "GET");
 
-    //console.log(data);
-    //console.log(cargando);
-
     if (data.status === "success") {
       setArticulos(data.articles);
     }
@@ -34,7 +31,7 @@ export const Articulos = () => {
         (
           articulos.length >= 1 ?
             (
-              <Listado articulos={articulos} />
+              <Listado articulos={articulos} setArticulos={setArticulos} />
             )
             :
             (

@@ -3,4 +3,5 @@ export const Global = {
   urlCreate: "http://localhost:3900/api/create",
   urlUploadImage: "http://localhost:3900/api/upload-image/",
   urlImage: "http://localhost:3900/api/image/",
+  urlDelete: "http://localhost:3900/api/delete/",
 }
