@@ -1,4 +1,4 @@
-export const PeticionAjax = async (url, method, dataSave = "") => {
+export const PeticionAjax = async (url, method, dataSave = "", archivos = false) => {
 
   let cargando = true;
 
@@ -13,13 +13,22 @@ export const PeticionAjax = async (url, method, dataSave = "") => {
   }
 
   if (method == "POST" || method == "PUT") {
-    opciones = {
-      method: method,
-      body: JSON.stringify(dataSave),
-      headers: {
-        "Content-Type": "application/json"
+
+    if (archivos) {
+      opciones = {
+        method: method,
+        body : dataSave
+      }
+    } else {
+      opciones = {
+        method: method,
+        body: JSON.stringify(dataSave),
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
     }
+
   }
 
   const peticion = await fetch(url, opciones);

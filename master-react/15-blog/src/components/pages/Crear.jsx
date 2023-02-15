@@ -19,7 +19,32 @@ export const Crear = () => {
     const { data } = await PeticionAjax(Global.urlCreate, "POST", nuevoArticulo);
 
     if (data.status == "success") {
+
       setResultado("success");
+
+      const fileInput = document.querySelector("#file");
+      
+      // Subir imágen
+      if (fileInput.files[0]) {
+
+        const formData = new FormData();
+        formData.append('file0', fileInput.files[0]);
+
+        console.log(data);
+
+        const subida = await PeticionAjax(Global.urlUploadImage + data.article._id, "POST", formData, true);
+
+        console.log(subida);
+
+        if (subida.data.status_img == "error" || subida.data.status == "error") {
+          console.log('entra en error imagen');
+          setResultado("errorimagen");
+        } else {
+          setResultado("success")
+          console.log('entra en success imagen');
+        }
+
+      }
     }
     else {
       setResultado("error");
@@ -31,7 +56,9 @@ export const Crear = () => {
     <div className='jumbo'>
 
       <strong>{resultado == "success" ? "Artículo guardado correctamente." : ""}</strong>
+      <strong>{resultado == "" ? "Error al guardar el artículo, quizás el título es demasiado corto" : ""}</strong>
       <strong>{resultado == "error" ? "Error al guardar el artículo, quizás el título es demasiado corto" : ""}</strong>
+      <strong>{resultado == "errorimagen" ? "Error al guardar la imagen, quizás no es jpg ni png" : ""}</strong>
 
       <h1>Crear Artículo</h1>
 
