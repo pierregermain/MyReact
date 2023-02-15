@@ -182,8 +182,9 @@ const uploadImage = (req, res) => {
   // Recoger el fichero de imágen
   if (!req.file && !req.files) {
     return res.status(400).json({
+      message: "No se ha subido ningún fichero",
       status: "error",
-      message: "No se ha subido ningún fichero"
+      status_img: "error"
     })
   }
 
@@ -199,6 +200,7 @@ const uploadImage = (req, res) => {
     fs.unlink(req.file.path, (error) => {
       return res.status(400).json({
         status: "error",
+        status_img: "error",
         message: "El fichero subido tiene que ser png o jpg"
       })
     })
@@ -216,12 +218,14 @@ const uploadImage = (req, res) => {
       if (error || !articuloActualizado) {
         return res.status(500).json({
           status: "error",
-          mensaje: "No hay articulo que editar",
+          status_img: "error",
+          mensaje: "No hay articulo que editar"
         });
       }
 
       return res.status(200).send({
         status: "success",
+        status_img: "success",
         articulo: articuloActualizado,
         file: req.file
       })
@@ -241,6 +245,7 @@ const image = (req, res) => {
       return res.status(404).json({
         status: "error",
         mensaje: "No se encontró fichero en la ruta especificada",
+        status_img: "error"
       });
     }
   })
