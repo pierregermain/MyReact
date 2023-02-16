@@ -25,8 +25,10 @@ export const Busqueda = () => {
 
     const { data, cargando } = await PeticionAjax(Global.urlSearch+params.busqueda, "GET");
 
+    console.log(data);
+
     if (data.status === "success") {
-      setArticulos(data.articles);
+      setArticulos(data.articulosEncontrados);
     }
     else {
       setArticulos([]);
