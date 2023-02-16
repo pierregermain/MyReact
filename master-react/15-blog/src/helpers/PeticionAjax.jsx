@@ -4,20 +4,23 @@ export const PeticionAjax = async (url, method, dataSave = "", archivos = false)
 
   let opciones = {
     method: "GET"
-  }
+  };
 
   if (method == "GET") {
     opciones = {
       method: "GET"
-    }
+    };
   }
+
   if (method == "DELETE") {
     opciones = {
       method: "DELETE"
-    }
+    };
   }
 
   if (method == "POST" || method == "PUT") {
+
+    let body = "";
 
     if (archivos) {
       opciones = {
@@ -31,18 +34,17 @@ export const PeticionAjax = async (url, method, dataSave = "", archivos = false)
         headers: {
           "Content-Type": "application/json"
         }
-      }
+      };
     }
 
   }
 
   const peticion = await fetch(url, opciones);
   const data = await peticion.json();
-
   cargando = false;
 
   return {
     data,
-    cargando,
+    cargando
   }
 }
