@@ -20,6 +20,7 @@ body{
         "footer footer footer footer"
     ;
     grid-template-rows: 0px 70px auto 70px;
+    grid-template-columns: 1fr 1fr 1fr 25%;
 }
 
 /*ESTILOS CABECERA*/
@@ -134,6 +135,17 @@ body{
 .articulo-item .edit {
     margin-right: 20px;
 }
+.articulo-item h3 {
+    font-size: 30px;
+}
+.articulo-item h3 a{
+    text-decoration: none;
+    color: #000;
+}
+.articulo-item h3 a:hover{
+    text-decoration: none;
+    color: green;
+}
 
 button,.button,.edit,
 input[type="submit"],
@@ -172,6 +184,11 @@ input[type="button"]{
 .jumbo button {
     display: block;
     margin-top: 40px;
+}
+.jumbo .mask img {
+  margin-top: 20px;
+  width: 100%;
+  overflow:hidden; 
 }
 
 /*ESTILOS BARRA LATERAL*/

@@ -31,7 +31,7 @@ export const Listado = ({articulos, setArticulos}) => {
                     {articulo.image == "default.png" && <img src="/src/assets/react.svg" />}
                   </div>
                   <div className='datos'>
-                    <h3 className="title">{articulo.title}</h3>
+                    <h3 className="title"><Link to={"/articulo/"+articulo._id}>{articulo.title}</Link></h3>
                     <p className="description">{articulo.content}</p>
                     <Link to={"/edit/"+articulo._id} className="edit">Editar</Link>
                     <button className="delete" onClick={() => {

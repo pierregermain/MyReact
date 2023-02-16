@@ -8,6 +8,7 @@ import { Inicio } from "../components/pages/Inicio";
 import { Footer } from "../components/layout/Footer";
 import { Editar } from "../components/pages/Editar";
 import { Busqueda } from "../components/pages/Busqueda";
+import { Articulo } from "../components/pages/Articulo";
 
 export const Rutas = () => {
   return (
@@ -23,6 +24,7 @@ export const Rutas = () => {
           <Route path="/" element={<Inicio />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/articulos" element={<Articulos />} />
+          <Route path="/articulo/:id" element={<Articulo />} />
           <Route path="/crear" element={<Crear />} />
           <Route path="/edit/:id" element={<Editar />} />
           <Route path="/search/:busqueda" element={<Busqueda />} />
