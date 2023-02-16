@@ -6,4 +6,5 @@ export const Global = {
   urlDelete: "http://localhost:3900/api/delete/",
   urlReadOne: "http://localhost:3900/api/readone/",
   urlEdit: "http://localhost:3900/api/edit/",
+  urlSearch: "http://localhost:3900/api/search/",
 }
