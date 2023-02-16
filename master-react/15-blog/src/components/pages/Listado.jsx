@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Global } from '../../helpers/Global';
 import { PeticionAjax } from '../../helpers/PeticionAjax';
 
@@ -32,7 +33,7 @@ export const Listado = ({articulos, setArticulos}) => {
                   <div className='datos'>
                     <h3 className="title">{articulo.title}</h3>
                     <p className="description">{articulo.content}</p>
-                    <button className="edit">Editar</button>
+                    <Link to={"/edit/"+articulo._id} className="edit">Editar</Link>
                     <button className="delete" onClick={() => {
                       eliminar(articulo._id);
                       }}>Borrar</button>

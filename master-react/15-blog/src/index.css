@@ -135,7 +135,7 @@ body{
     margin-right: 20px;
 }
 
-button,.button,
+button,.button,.edit,
 input[type="submit"],
 input[type="button"]{
     width: 100px;
@@ -224,6 +224,15 @@ textarea
     text-align: left;
     color: #444;
     display: none;
+}
+.form-group .mask {
+    width: 200px;
+    border: 1px solid #444;
+    margin: 5px;
+    margin-left: 50px;
+}
+.form-group .mask img {
+    width: 200px;
 }
 
 

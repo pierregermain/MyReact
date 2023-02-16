@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { PeticionAjax } from '../../helpers/PeticionAjax'
 import { Global } from '../../helpers/Global';
@@ -8,22 +9,39 @@ export const Editar = () => {
 
   const { formulario, enviado, cambiado } = useForm({});
   const [resultado, setResultado] = useState("init");
+  const [article, setArticule] = useState({});
+  const params = useParams();
 
-  const guardarArticulo = async (e) => {
+  useEffect(() => {
+    conseguirArticulo();
+  }, [])
+
+  const conseguirArticulo = async () => {
+    const { data } = await PeticionAjax(Global.urlReadOne + params.id, "GET");
+
+    if (data.status === "success") {
+      setArticule(data.article);
+    }
+  }
+
+  const editarArticulo = async (e) => {
     e.preventDefault();
 
     // Recoger datos formulario
     let nuevoArticulo = formulario;
 
+    console.log(params.id);
+    console.log(nuevoArticulo);
+
     // Guardar el artículo usando nuestra api
-    const { data } = await PeticionAjax(Global.urlCreate, "POST", nuevoArticulo);
+    const { data } = await PeticionAjax(Global.urlEdit + params.id, "PUT", nuevoArticulo);
 
     if (data.status == "success") {
 
       setResultado("success");
 
       const fileInput = document.querySelector("#file");
-      
+
       // Subir imágen
       if (fileInput.files[0]) {
 
@@ -60,22 +78,26 @@ export const Editar = () => {
       <strong>{resultado == "error" ? "Error al guardar el artículo, quizás el título es demasiado corto" : ""}</strong>
       <strong>{resultado == "errorimagen" ? "Error al guardar la imagen, quizás no es jpg ni png" : ""}</strong>
 
-      <h1>Editar Artículo</h1>
+      <h2>Editar Artículo <i>{article.title}</i></h2>
 
-      <form className='formulario' onSubmit={guardarArticulo}>
+      <form className='formulario' onSubmit={editarArticulo}>
 
         <div className='form-group'>
           <label htmlFor='title'>Title</label>
-          <input type="text" name="title" placeholder='Título' onChange={cambiado} />
+          <input type="text" name="title" placeholder='Título' onChange={cambiado} defaultValue={article.title} />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='content'>Title</label>
-          <textarea name="content" placeholder="Contenido" onChange={cambiado} />
+          <label htmlFor='content'>Content</label>
+          <textarea name="content" placeholder="Contenido" onChange={cambiado} defaultValue={article.content} />
         </div>
 
         <div className='form-group'>
           <label htmlFor='file0'>Imagen</label>
+          <div className='mask'>
+            {article.image != "default.png" && <img src={Global.urlImage + article.image} />}
+            {article.image == "default.png" && <img src="/src/assets/react.svg" />}
+          </div>
           <input type="file" name="file0" id="file" onChange={cambiado} />
         </div>
 
