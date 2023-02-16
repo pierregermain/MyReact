@@ -50,7 +50,7 @@ export const Editar = () => {
 
         console.log(data);
 
-        const subida = await PeticionAjax(Global.urlUploadImage + data.article.id, "POST", formData, true);
+        const subida = await PeticionAjax(Global.urlUploadImage + data.articulo._id, "POST", formData, true);
 
         console.log(subida);
 
