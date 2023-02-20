@@ -17,20 +17,27 @@ app.use(cors());
 
 // Convertir los datos del body a objetos json
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // Cargar conf rutas
+const UserRoutes = require("./routes/userRouter");
+const PublicationRoutes = require("./routes/publicationRouter");
+const FollowRoutes = require("./routes/followRouter");
+
+app.use("/api", UserRoutes);
+app.use("/api", PublicationRoutes);
+app.use("/api", FollowRoutes);
 
 // Ruta de prueba
-app.get("/hello-world",(req,res) => {
-  return res.status(200).json(
-    {
-      "message": "hello world"
-    }
-  );
-})
+//app.get("/hello-world", (req, res) => {
+//  return res.status(200).json(
+//    {
+//      "message": "hello world"
+//    }
+//  );
+//})
 
 // Poner servidor a escuchar petiones http
 app.listen(puerto, () => {
-  console.log('Servidor corriendo en el puerto ',puerto);
+  console.log('Servidor corriendo en el puerto ', puerto);
 })
