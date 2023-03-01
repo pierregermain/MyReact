@@ -88,21 +88,33 @@ const login = (req, res) => {
   }
 
   // Buscar en la db si existe el email
-  User.findOne({ email: params.email }).select({"password": 0}).exec((error, user) => {
+  User.findOne({ email: params.email }).select().exec((error, user) => {
     if (error || !user) return res.status(404).send({
       status: "error",
       message: "No existe el usuario"
     });
+
     // Comprobar contraseña
+    const pwd = bcrypt.compareSync(params.password, user.password);
+
+    if (!pwd) return res.status(400).send({
+      status: "error",
+      message: "Contraseña no correcta"
+    });
 
     // Devolver Token si correcto
+    const token = false;
 
     // Devolver Datos usuario
-
     return res.status(200).send({
       status: "success",
-      message: "Accion de login",
-      user: user
+      message: "Accion de login realizado correctamente",
+      user: {
+        id: user._id,
+        name: user.name,
+        nick: user.nick
+      },
+      token
     });
 
   });
