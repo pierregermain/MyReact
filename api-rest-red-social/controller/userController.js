@@ -88,7 +88,7 @@ const login = (req, res) => {
   }
 
   // Buscar en la db si existe el email
-  User.findOne({ email: params.email }, (error, user) => {
+  User.findOne({ email: params.email }).select({"password": 0}).exec((error, user) => {
     if (error || !user) return res.status(404).send({
       status: "error",
       message: "No existe el usuario"
