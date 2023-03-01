@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("../services/jwt");
 
 // Acciones de prueba
 const pruebaUser = (req, res) => {
@@ -103,7 +104,7 @@ const login = (req, res) => {
     });
 
     // Devolver Token si correcto
-    const token = false;
+    const token = jwt.createToken(user);
 
     // Devolver Datos usuario
     return res.status(200).send({
