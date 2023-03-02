@@ -1,12 +1,12 @@
 // Importar modules
-import jwt from "jwt-simple";
-import moment from "moment";
+const jwt = require("jwt-simple");
+const moment = require("moment");
 
 // Importar clave secreta
-import { secret as _secret } from "../services/jwt";
-const secret = _secret;
+const libjwt = require("../services/jwt");
+const secret = libjwt.secret;
 
-// Función tipo middleware de authentication
+// MIDDLEWARE de autentificación
 exports.auth = (req, res, next) => {
   // Comprobar si me llega la cabecera de auth
   if (!req.headers.authorization) {
@@ -17,33 +17,32 @@ exports.auth = (req, res, next) => {
   }
 
   // Limpiar el token
-  let token = req.headers.authorization.replace(/['"]+/g, '');
+  let token = req.headers.authorization.replace(/['"]+/g, '');// Cambiar comillas simples y dobles por nada
 
   // Decodificar token
   try {
     let payload = jwt.decode(token, secret);
 
-    // Comprobar expiración
+    // Comprobar expiración del token
     if (payload.exp <= moment().unix()) {
-      return res.status(404).send({
+      return res.status(401).send({
         status: "error",
         message: "Token expirado"
       });
-
     }
+    
+    // Agregar datos de usuario a request
+    req.user = payload;
   }
-  catch {
+  catch (error) {
     return res.status(404).send({
       status: "error",
-      message: "Token no valido (el siguiente error message no se deberia mostrar al usuario)",
+      message: "Token no valido (Nota: el siguiente mensaje de error no se deberia mostrar al usuario)",
       error
     })
   }
 
-  // Agregar datos de usuario a request
-  req.user = payload;
 
-  // Pasar a siguiente acción
+  // Pasar a siguiente acción (acción del controlador)
   next();
-
 }
