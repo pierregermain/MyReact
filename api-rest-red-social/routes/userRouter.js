@@ -5,10 +5,14 @@ const UserController = require("../controller/userController");
 const middlewareAuth = require("../middlewares/auth");
 
 // Definir routes
+
 // Prueba de token
 router.get("/prueba-user", middlewareAuth.auth, UserController.pruebaUser);
+
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
+
+router.get("/profile/:id", middlewareAuth.auth, UserController.profile);
 
 // Export routes
 module.exports = router;
