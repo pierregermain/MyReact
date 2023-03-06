@@ -183,9 +183,10 @@ const list = (req, res) => {
 }
 
 const update = (req, res) => {
+
   // Obtener info del usuario a actualizar
   const userIdentity = req.user; // Datos que tengo del usuario
-  const userToUpdate = req.body; // Datos que recibo del usuario
+  const userToUpdate = req.body; // Datos que me llegan por PUT del usuario para ser actualizados
 
   // Quitar campos que no se deberían actualizar
   delete userToUpdate.iat;
@@ -193,7 +194,7 @@ const update = (req, res) => {
   delete userToUpdate.role;
   delete userToUpdate.image;
 
-  // Comprobar si el email existe
+  // Comprobar si el usuario existe
   User.find({
     $or: [
       { email: userToUpdate.email.toLowerCase() },
@@ -201,32 +202,60 @@ const update = (req, res) => {
     ]
   }).exec(async (error, users) => {
 
-    if (error) return res.status(500).json({
-      status: "error",
-      message: "Error en la consulta de búsqueda de usuarios"
-    });
+    if (error) {
+      return res.status(500).json({
+        status: "error",
+        message: "Error en la consulta de búsqueda de usuarios"
+      });
+    }
 
-    if (users && users.length >= 1) {
+    let userIsset = false; // El usuario no existe
+    users.forEach(user => {
+      if (user && user._id != userIdentity.id) {
+        userIsset = true;
+      }
+    })
+
+
+    if (userIsset) {
       return res.status(200).send({
         status: "success",
         message: "El usuario ya existe"
       })
     }
 
+
     // Cifrar contraseña
     if (userToUpdate.password) {
-      let pwd_hashed = await (bcrypt.hash(params.password, 10));
-      params.password = pwd_hashed;
+      let pwd_hashed = await (bcrypt.hash(userToUpdate.password, 10));
+      userToUpdate.password = pwd_hashed;
     }
-    
-    // Buscar y actualizar
-    return res.status(200).send({
-      status: "success",
-      message: "Método update user",
-      userToUpdate
-    })
+
+    // Buscar y Actualizar
+    User.findByIdAndUpdate(userIdentity.id, userToUpdate, { new: true }, (error, userUpdated) => {
+
+      if (error || !userUpdated) {
+        return res.status(500).json({
+          status: "error",
+          message: "Error al actualizar usuario"
+        });
+      }
+
+      // Devolver respuesta
+      return res.status(200).send({
+        status: "success",
+        message: "Método de actualizar usuario",
+        users,
+        userIsset,
+        user_updated: userUpdated
+      })
+
+    });
+
+
 
   });
+
 
 
 }
