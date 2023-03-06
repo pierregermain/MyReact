@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../services/jwt");
+const mongoosePagination = require("mongoose-pagination");
 
 // Acciones de prueba
 const pruebaUser = (req, res) => {
@@ -127,21 +128,107 @@ const profile = (req, res) => {
 
   // Consultar para saber los datos del usuario
   User.findById(id)
-  .select({password:0, role:0})
-  .exec((error, userProfile) => {
-    if(error || !userProfile){
+    .select({ password: 0, role: 0 })
+    .exec((error, userProfile) => {
+      if (error || !userProfile) {
+        return res.status(404).send({
+          status: "error",
+          message: "El usuario no existe o ha habido un error"
+        })
+      }
+
+      // Devolver el resultado
+      return res.status(200).send({
+        status: "success",
+        user: userProfile
+      })
+    });
+}
+
+const list = (req, res) => {
+
+  // Controlar en que pagina estamos
+  let page = 1;
+  if (req.params.page) {
+    page = req.params.page;
+  }
+  page = parseInt(page);
+
+  // Consulta con mongoose paginate
+  let itemsPerPage = 5;
+
+  User.find().sort('_id').paginate(page, itemsPerPage, (error, users, total) => {
+
+    if (error || !users) {
       return res.status(404).send({
         status: "error",
-        message: "El usuario no existe o ha habido un error"
+        message: "Ha ocurrido un error al listar los usuarios",
+        error
       })
     }
-    
-    // Devolver el resultado
+
+    // Devolver resultados
     return res.status(200).send({
       status: "success",
-      user: userProfile
+      message: "Ruta de listado de usuarios",
+      users,
+      page: page,
+      itemsPerPage,
+      total,
+      pages: Math.ceil(total / itemsPerPage) //ceil sirve para redonderar hacia arriba
+    });
+
+  })
+
+}
+
+const update = (req, res) => {
+  // Obtener info del usuario a actualizar
+  const userIdentity = req.user; // Datos que tengo del usuario
+  const userToUpdate = req.body; // Datos que recibo del usuario
+
+  // Quitar campos que no se deberían actualizar
+  delete userToUpdate.iat;
+  delete userToUpdate.exp;
+  delete userToUpdate.role;
+  delete userToUpdate.image;
+
+  // Comprobar si el email existe
+  User.find({
+    $or: [
+      { email: userToUpdate.email.toLowerCase() },
+      { nick: userToUpdate.nick.toLowerCase() },
+    ]
+  }).exec(async (error, users) => {
+
+    if (error) return res.status(500).json({
+      status: "error",
+      message: "Error en la consulta de búsqueda de usuarios"
+    });
+
+    if (users && users.length >= 1) {
+      return res.status(200).send({
+        status: "success",
+        message: "El usuario ya existe"
+      })
+    }
+
+    // Cifrar contraseña
+    if (userToUpdate.password) {
+      let pwd_hashed = await (bcrypt.hash(params.password, 10));
+      params.password = pwd_hashed;
+    }
+    
+    // Buscar y actualizar
+    return res.status(200).send({
+      status: "success",
+      message: "Método update user",
+      userToUpdate
     })
+
   });
+
+
 }
 
 // Exportar acciones
@@ -149,5 +236,7 @@ module.exports = {
   pruebaUser,
   register,
   login,
-  profile
+  profile,
+  list,
+  update
 }

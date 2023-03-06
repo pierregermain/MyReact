@@ -13,6 +13,9 @@ router.post("/register", UserController.register);
 router.post("/login", UserController.login);
 
 router.get("/profile/:id", middlewareAuth.auth, UserController.profile);
+router.get("/list/:page?", middlewareAuth.auth, UserController.list);
+
+router.put("/update",middlewareAuth.auth, UserController.update);
 
 // Export routes
 module.exports = router;
