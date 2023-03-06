@@ -232,25 +232,34 @@ const update = (req, res) => {
     }
 
     // Buscar y Actualizar
-    User.findByIdAndUpdate(userIdentity.id, userToUpdate, { new: true }, (error, userUpdated) => {
+    try {
+      let userUpdated = await User.findByIdAndUpdate(userIdentity.id, userToUpdate, { new: true });
 
-      if (error || !userUpdated) {
-        return res.status(500).json({
+      if (!userUpdated) {
+        return res.status(404).json({
           status: "error",
-          message: "Error al actualizar usuario"
+          message: "Error al buscar usuario a ser actualizado",
         });
       }
-
+      
       // Devolver respuesta
       return res.status(200).send({
         status: "success",
         message: "Método de actualizar usuario",
-        users,
-        userIsset,
-        user_updated: userUpdated
+        user_updated: userUpdated,
+        //userIsset,
+        //users,
       })
+    }
+    catch (error) {
+      return res.status(500).json({
+        status: "error",
+        message: "Error al actualizar usuario",
+      });
 
-    });
+    }
+
+
 
 
 
