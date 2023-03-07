@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const UserController = require("../controller/userController");
+
 // Middleware de autentificación
 const middlewareAuth = require("../middlewares/auth");
 
@@ -29,6 +30,7 @@ router.post("/upload", [middlewareAuth.auth, middlewareUploads.single("file0")],
 
 router.get("/profile/:id", middlewareAuth.auth, UserController.profile);
 router.get("/list/:page?", middlewareAuth.auth, UserController.list);
+router.get("/avatar/:file", middlewareAuth.auth, UserController.avatar);
 
 router.put("/update", middlewareAuth.auth, UserController.update);
 

@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("../services/jwt");
 const mongoosePagination = require("mongoose-pagination");
 const fs = require("fs");
+const path = require("path");
 
 // Acciones de prueba
 const pruebaUser = (req, res) => {
@@ -319,6 +320,29 @@ const upload = (req, res) => {
   });
 }
 
+const avatar = (req, res) => {
+
+  // Obtener parámetro de la url
+  const file = req.params.file;
+
+  // Montar el path
+  const filePath = "./uploads/avatars/"+file;
+
+  // Comprobar
+  fs.stat(filePath, (error, exists) => {
+
+    if(!exists){
+      return res.status(404).send({
+        status: "error", 
+        message: "No existe la imagen"
+      });
+    }
+
+    // Devolver fichero
+    return res.status(200).sendFile(path.resolve(filePath));
+  });
+};
+
 // Exportar acciones
 module.exports = {
   pruebaUser,
@@ -327,5 +351,6 @@ module.exports = {
   profile,
   list,
   update,
-  upload
+  upload,
+  avatar
 }
