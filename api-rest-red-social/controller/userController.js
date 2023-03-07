@@ -241,7 +241,7 @@ const update = (req, res) => {
           message: "Error al buscar usuario a ser actualizado",
         });
       }
-      
+
       // Devolver respuesta
       return res.status(200).send({
         status: "success",
@@ -265,8 +265,15 @@ const update = (req, res) => {
 
   });
 
+}
 
-
+const upload = (req, res) => {
+  return res.status(200).send({
+    status: "success",
+    message: "Upload image",
+    'user id': req.user.id,
+    file: req.file,
+  })
 }
 
 // Exportar acciones
@@ -276,5 +283,6 @@ module.exports = {
   login,
   profile,
   list,
-  update
+  update,
+  upload
 }
