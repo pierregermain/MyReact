@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../services/jwt");
 const mongoosePagination = require("mongoose-pagination");
+const fs = require("fs");
 
 // Acciones de prueba
 const pruebaUser = (req, res) => {
@@ -259,21 +260,63 @@ const update = (req, res) => {
 
     }
 
-
-
-
-
   });
 
 }
 
 const upload = (req, res) => {
-  return res.status(200).send({
-    status: "success",
-    message: "Upload image",
-    'user id': req.user.id,
-    file: req.file,
-  })
+
+  // Recoger el fichero de imágen y comprobar que existe
+  if (!req.file) {
+    return res.status(404).send({
+      status: "error",
+      message: "Petición no tiene fichero"
+    })
+  }
+
+  // Conseguir el nombre del fichero
+  let image = req.file.originalname;
+
+  // Sacar la extensión del fichero
+  const imageSplit = image.split("\.");
+  const extension = imageSplit[1];
+
+  // Comprobar extensión
+  if (extension != "png" && extension != "jpg" && extension != "jpeg") {
+
+    // Borrar fichero si no es imagen
+    const filePath = req.file.path;
+    const fileDeleted = fs.unlinkSync(filePath);
+
+    return res.status(400).send({
+      status: "error",
+      message: "Extensión del fichero invalida"
+    })
+  }
+
+  // Si es correcto hacer, guardar la imagen en DB
+  User.findOneAndUpdate(req.user.id,
+    { image: req.file.filename },
+    { new: true },
+    (error, userUpdated) => {
+      
+      if (error || !userUpdated) {
+        return res.status(500).json({
+          status: "error",
+          message: "Error al enviar el avatar",
+        });
+      }
+
+      // Devolver respuesta
+      return res.status(200).send({
+        status: "success",
+        message: "Image has been uploaded",
+        'user id': req.user.id,
+        user: userUpdated,
+        file: req.file,
+      });
+
+  });
 }
 
 // Exportar acciones
