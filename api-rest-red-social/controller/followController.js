@@ -9,9 +9,13 @@ const pruebaFollow = (req, res) => {
 }
 // Acción de guardar un follow (Accion seguir)
 const save = (req,res) => {
+
+
+
   return res.status(200).send({
     status: "success",
-    message: "Método seguir"
+    message: "Método seguir",
+    identity: req.user
   })
 }
 
