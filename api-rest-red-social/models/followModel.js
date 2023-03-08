@@ -2,11 +2,11 @@ const {Schema, model} = require("mongoose");
 
 const FollowSchema = Schema({
   user: {
-    type: Schema.ObjectID,
+    type: Schema.ObjectId,
     ref: "User"
   },
   followed: {
-    type: Schema.ObjectID,
+    type: Schema.ObjectId,
     ref: "User"
   },
   created_at: {
