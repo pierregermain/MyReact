@@ -26,11 +26,11 @@ const save = (req, res) => {
 
     console.log(followStored);
 
-    if(error || !followStored){
-    return res.status(500).send({
-      status: "error",
-      message: "No se ha podido seguir al usuario"
-    })
+    if (error || !followStored) {
+      return res.status(500).send({
+        status: "error",
+        message: "No se ha podido seguir al usuario"
+      })
 
     }
     return res.status(200).send({
@@ -48,6 +48,40 @@ const save = (req, res) => {
 
 // Acción de borrar un follow (Accion de dejar de seguir)
 
+const unfollow = (req, res) => {
+  // Recoger el id del usuario identificado
+  const userId = req.user.id;
+
+  // Recoger el id del usuario que sigo y quiero dejar de seguir
+  const followedId = req.params.id;
+
+  // Find de las coincidencias
+  Follow.find({
+    "user": userId,
+    "followed": followedId
+  }).remove((error, followDeleted) => {
+
+    if(error || !followDeleted){
+    return res.status(500).send({
+      status: "error",
+      message: "Error al intentar dejar de seguir al usuario"
+    });
+
+    }
+
+    // Hacer remove
+    return res.status(200).send({
+      status: "success",
+      message: "Follow borrado correctamente",
+      followDeleted
+    });
+
+  });
+
+
+
+}
+
 // Acción listado de usuarios que estoy siguiendo
 
 // Acción listado de usuarios que me siguien
@@ -55,5 +89,6 @@ const save = (req, res) => {
 // Exportar acciones
 module.exports = {
   pruebaFollow,
-  save
+  save,
+  unfollow
 }
