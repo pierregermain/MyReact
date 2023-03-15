@@ -7,8 +7,8 @@ const middlewareAuth = require("../middlewares/auth");
 router.get("/prueba-follow", FollowController.pruebaFollow);
 router.post("/save", middlewareAuth.auth, FollowController.save);
 router.delete("/unfollow/:id", middlewareAuth.auth, FollowController.unfollow);
-router.get("/following/:id", FollowController.following);
-router.get("/followers/:id?/:page?", FollowController.followers);
+router.get("/following/:id?/:page?", middlewareAuth.auth, FollowController.following);
+router.get("/followers/:id?/:page?", middlewareAuth.auth, FollowController.followers);
 
 // Export routes
 module.exports = router;
