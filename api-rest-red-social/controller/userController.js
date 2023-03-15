@@ -1,9 +1,11 @@
-const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../services/jwt");
 const mongoosePagination = require("mongoose-pagination");
 const fs = require("fs");
 const path = require("path");
+
+const User = require("../models/userModel");
+const followService = require("../services/followService");
 
 // Acciones de prueba
 const pruebaUser = (req, res) => {
@@ -131,7 +133,7 @@ const profile = (req, res) => {
   // Consultar para saber los datos del usuario
   User.findById(id)
     .select({ password: 0, role: 0 })
-    .exec((error, userProfile) => {
+    .exec(async(error, userProfile) => {
       if (error || !userProfile) {
         return res.status(404).send({
           status: "error",
@@ -139,10 +141,15 @@ const profile = (req, res) => {
         })
       }
 
+      // Info de seguimiento
+      const followInfo = await followService.followsThisUser(req.user.id, id);
+
       // Devolver el resultado
       return res.status(200).send({
         status: "success",
-        user: userProfile
+        user: userProfile,
+        following: followInfo.userIsFollowing,
+        follower: followInfo.profileIsFollowing
       })
     });
 }

@@ -33,7 +33,19 @@ const followUserIds = async (userId) => {
 
 }
 
-const followsThisUser = async (identityUserId, profileUserId) => {
+const followsThisUser = async (userId, profileId) => {
+
+  // userId sigue a profileId
+  let following = await Follow.findOne({ "user": userId, "followed": profileId });
+
+  // profileId sigue a userId
+  let follower = await Follow.findOne({ "user": profileId, "followed": userId });
+
+    return {
+      userIsFollowing: following,
+      profileIsFollowing: follower
+    }
+
 
 }
 
