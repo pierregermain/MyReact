@@ -1,6 +1,8 @@
 const Follow = require("../models/followModel");
 const User = require("../models/userModel");
 
+const followService = require("../services/followService");
+
 // Importar dependencias
 const mongoosePaginate = require("mongoose-pagination");
 
@@ -110,11 +112,14 @@ const following = (req, res) => {
 
   // Find a follow
   Follow.find({ user: userId })
+    // Obtener datos de los usuarios
     .populate("user followed", "-password -role -__v")
-    .paginate(page, itemsPerPage, (error, follows, total) => {
+    // Paginar con mongoose
+    .paginate(page, itemsPerPage, async (error, follows, total) => {
 
-      // Obtener datos de los usuarios
-      // Paginar con mongoose
+      // Listar following y followers
+      let followUserIds = await followService.followUserIds(userId);
+
 
       return res.status(200).send({
         status: "success",
@@ -122,7 +127,9 @@ const following = (req, res) => {
         userId: userId,
         follows,
         total,
-        pages: Math.ceil(total/itemsPerPage)
+        pages: Math.ceil(total/itemsPerPage),
+        user_following: followUserIds.following,
+        user_followers: followUserIds.followers //user_follow_me
       });
 
     });
