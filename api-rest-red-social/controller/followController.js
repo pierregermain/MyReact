@@ -19,7 +19,7 @@ const save = (req, res) => {
 
   // Sacar el id del usuario identificado
   const identity = req.user;
-  console.log('identity',identity);
+  console.log('identity', identity);
 
   // Crear objeto con modelo follow
   // followed es el usuario que voy a seguir
@@ -109,19 +109,21 @@ const following = (req, res) => {
   const itemsPerPage = 5;
 
   // Find a follow
-  Follow.find({ user: userId }).populate("user followed").exec((error, follows) => {
+  Follow.find({ user: userId })
+    .populate("user followed", "-password -role -__v")
+    .exec((error, follows) => {
 
-    // Obtener datos de los usuarios
-    // Paginar con mongoose
+      // Obtener datos de los usuarios
+      // Paginar con mongoose
 
-    return res.status(200).send({
-      status: "success",
-      message: "Listado de usuarios que estoy siguiendo",
-      userId: userId,
-      follows
+      return res.status(200).send({
+        status: "success",
+        message: "Listado de usuarios que estoy siguiendo",
+        userId: userId,
+        follows
+      });
+
     });
-
-  });
 
 }
 
