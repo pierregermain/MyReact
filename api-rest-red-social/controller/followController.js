@@ -106,12 +106,12 @@ const following = (req, res) => {
   if (req.params.page) { page = req.params.page; }
 
   // Ver cuantos elementos quiero por página
-  const itemsPerPage = 5;
+  const itemsPerPage = 2;
 
   // Find a follow
   Follow.find({ user: userId })
     .populate("user followed", "-password -role -__v")
-    .exec((error, follows) => {
+    .paginate(page, itemsPerPage, (error, follows, total) => {
 
       // Obtener datos de los usuarios
       // Paginar con mongoose
@@ -120,7 +120,9 @@ const following = (req, res) => {
         status: "success",
         message: "Listado de usuarios que estoy siguiendo",
         userId: userId,
-        follows
+        follows,
+        total,
+        pages: Math.ceil(total/itemsPerPage)
       });
 
     });
