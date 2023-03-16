@@ -140,11 +140,43 @@ const following = (req, res) => {
 // Acción listado de usuarios que siguen a un usuario
 const followers = (req, res) => {
 
+  // Id del usuario identificado
+  let userId = req.user.id
 
-  return res.status(200).send({
-    status: "success",
-    message: "Listado de usuarios que me siguen"
-  });
+  // Ver si llega el ID por params
+  if (req.params.id) { userId = req.params.id; }
+
+  // Comprobar la pagina que me llega por params
+  let page = 1;
+
+  if (req.params.page) { page = req.params.page; }
+
+  // Ver cuantos elementos quiero por página
+  const itemsPerPage = 2;
+
+  // Find a follow
+  Follow.find({ followed: userId })
+    // Obtener datos de los usuarios
+    .populate("user followed", "-password -role -__v")
+    // Paginar con mongoose
+    .paginate(page, itemsPerPage, async (error, follows, total) => {
+
+      // Listar following y followers
+      let followUserIds = await followService.followUserIds(userId);
+
+
+      return res.status(200).send({
+        status: "success",
+        message: "Listado de usuarios que estoy siguiendo",
+        userId: userId,
+        follows,
+        total,
+        pages: Math.ceil(total/itemsPerPage),
+        user_following: followUserIds.following,
+        user_followers: followUserIds.followers //user_follow_me
+      });
+
+    });
 
 }
 
