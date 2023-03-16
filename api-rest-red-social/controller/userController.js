@@ -166,7 +166,7 @@ const list = (req, res) => {
   // Consulta con mongoose paginate
   let itemsPerPage = 5;
 
-  User.find().sort('_id').paginate(page, itemsPerPage, (error, users, total) => {
+  User.find().sort('_id').paginate(page, itemsPerPage, async(error, users, total) => {
 
     if (error || !users) {
       return res.status(404).send({
@@ -176,6 +176,9 @@ const list = (req, res) => {
       })
     }
 
+    // Sacar listado de follows
+    let followUserIds = await followService.followUserIds(req.user.id);
+
     // Devolver resultados
     return res.status(200).send({
       status: "success",
@@ -184,7 +187,9 @@ const list = (req, res) => {
       page: page,
       itemsPerPage,
       total,
-      pages: Math.ceil(total / itemsPerPage) //ceil sirve para redonderar hacia arriba
+      pages: Math.ceil(total / itemsPerPage), //ceil sirve para redonderar hacia arriba
+      user_following: followUserIds.following,
+      user_followers: followUserIds.followers
     });
 
   })
