@@ -48,7 +48,6 @@ const detail = (req, res) => {
   const publicationId = req.params.id;
 
   // Find con la condicion del id
-
   Publication.findById(publicationId, (error, publicationStored) => {
 
     if(error || !publicationStored) {
@@ -69,7 +68,31 @@ const detail = (req, res) => {
 
 }
 
-// Eliminar publicaciones
+// Borrar una publicacion
+const remove = (req, res) => {
+
+  // Sacar ID de la publicacion de la url
+  const publicationId = req.params.id;
+
+  // Find con la condicion del id
+  Publication.find({ "user": req.user.id, "_id": publicationId }).remove (error => {
+
+    if(error) {
+
+      return res.status(500).send({
+        status: "error",
+        message: "No se ha podido borrar la publicación"
+      });
+
+    }
+    // Devolver respuesta
+    return res.status(200).send({
+      status: "success",
+      message: "Se ha borrado la publication",
+      publication: publicationId
+    });
+  });
+}
 
 // Listar publicaciones
 
@@ -83,5 +106,6 @@ const detail = (req, res) => {
 module.exports = {
   pruebaPublication,
   save,
-  detail
+  detail,
+  remove
 }
