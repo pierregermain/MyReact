@@ -42,6 +42,32 @@ const save = (req, res) => {
 }
 
 // Obtener una publicacion
+const detail = (req, res) => {
+
+  // Sacar ID de la publicacion de la url
+  const publicationId = req.params.id;
+
+  // Find con la condicion del id
+
+  Publication.findById(publicationId, (error, publicationStored) => {
+
+    if(error || !publicationStored) {
+      return res.status(404).send({
+        status: "error",
+        "message": "No existe la publicación"
+      });
+    }
+
+    // Devolver respuesta
+    return res.status(200).send({
+      status: "success",
+      message: "Mostrar publication",
+      publication: publicationStored
+    });
+
+  });
+
+}
 
 // Eliminar publicaciones
 
@@ -56,5 +82,6 @@ const save = (req, res) => {
 // Exportar acciones
 module.exports = {
   pruebaPublication,
-  save
+  save,
+  detail
 }
