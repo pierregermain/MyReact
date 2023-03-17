@@ -6,6 +6,12 @@ const pruebaPublication = (req, res) => {
 }
 
 // Guardar publicacion
+const save = (req, res) => {
+
+  return res.status(200).send({
+    message: "Mensaje enviado desde save"
+  })
+}
 
 // Obtener una publicacion
 
@@ -21,5 +27,6 @@ const pruebaPublication = (req, res) => {
 
 // Exportar acciones
 module.exports = {
-  pruebaPublication
+  pruebaPublication,
+  save
 }
