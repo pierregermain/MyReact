@@ -50,7 +50,7 @@ const detail = (req, res) => {
   // Find con la condicion del id
   Publication.findById(publicationId, (error, publicationStored) => {
 
-    if(error || !publicationStored) {
+    if (error || !publicationStored) {
       return res.status(404).send({
         status: "error",
         "message": "No existe la publicación"
@@ -75,9 +75,9 @@ const remove = (req, res) => {
   const publicationId = req.params.id;
 
   // Find con la condicion del id
-  Publication.find({ "user": req.user.id, "_id": publicationId }).remove (error => {
+  Publication.find({ "user": req.user.id, "_id": publicationId }).remove(error => {
 
-    if(error) {
+    if (error) {
 
       return res.status(500).send({
         status: "error",
@@ -94,9 +94,48 @@ const remove = (req, res) => {
   });
 }
 
-// Listar publicaciones
-
 // Listar publicaciones de un usuario
+const user = (req, res) => {
+
+  // Scar el id de usuario
+  const userId = req.params.id;
+
+  // Controlar la pagina
+  let page = 1;
+
+  if (req.params.page) {
+    page = req.params.page
+  }
+
+  const itemsPerPage = 2;
+
+  // Find, populate, ordnar y paginar
+  Publication.find({ "user": userId })
+    .sort("-created_at")// ordenamos descendientemente por created_at
+    .populate('user', '-password -__v -role') // obtenemos datos del user y quitamos algunos campos
+    .paginate(page, itemsPerPage, (error, publications, total) => {
+
+      if (error || !publications || publications.length <= 0) {
+        return res.status(404).send({
+          status: "error",
+          message: "No se han encontrado publicaciones"
+        });
+      }
+
+      return res.status(200).send({
+        status: "success",
+        message: "Listado publicaciones de un usuario",
+        page,
+        total,
+        pages: Math.ceil(total / itemsPerPage),
+        publications,
+      });
+
+    });
+}
+
+// Listar publicaciones de usuarios que seguimos
+
 
 // Subir ficheros
 
@@ -107,5 +146,6 @@ module.exports = {
   pruebaPublication,
   save,
   detail,
-  remove
+  remove,
+  user
 }
