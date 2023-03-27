@@ -134,6 +134,65 @@ const user = (req, res) => {
     });
 }
 
+const upload = (req, res) => {
+
+  // Sacar publication id
+  const publicationId = req.params.id;
+
+  // Recoger el fichero de imágen y comprobar que existe
+  if (!req.file) {
+    return res.status(404).send({
+      status: "error",
+      message: "Petición no tiene fichero"
+    })
+  }
+
+  // Conseguir el nombre del fichero
+  let image = req.file.originalname;
+
+  // Sacar la extensión del fichero
+  const imageSplit = image.split("\.");
+  const extension = imageSplit[1];
+
+  // Comprobar extensión
+  if (extension != "png" && extension != "jpg" && extension != "jpeg") {
+
+    // Borrar fichero si no es imagen
+    const filePath = req.file.path;
+    const fileDeleted = fs.unlinkSync(filePath);
+
+    return res.status(400).send({
+      status: "error",
+      message: "Extensión del fichero invalida"
+    })
+  }
+
+  // Si es correcto hacer, guardar la imagen en DB
+  Publication.findOneAndUpdate(
+    { user: req.user.id, "_id":publicationId },
+    { file: req.file.filename },
+    { new: true },
+    (error, publicationUpdated) => {
+      
+      if (error || !publicationUpdated) {
+        return res.status(500).json({
+          status: "error",
+          message: "Error al enviar la publicación",
+        });
+      }
+
+      // Devolver respuesta
+      return res.status(200).send({
+        status: "success",
+        message: "Image has been uploaded",
+        'user id': req.user.id,
+        publication: publicationUpdated,
+        file: req.file,
+      });
+
+  });
+}
+
 // Listar publicaciones de usuarios que seguimos
 
 
@@ -147,5 +206,6 @@ module.exports = {
   save,
   detail,
   remove,
-  user
+  user,
+  upload
 }
