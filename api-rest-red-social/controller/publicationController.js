@@ -1,4 +1,10 @@
+// Importar módulos
+const fs = require("fs");
+const path = require("path");
+
+// Importar modélos
 const Publication = require("../models/publication");
+
 
 // Acciones de prueba
 const pruebaPublication = (req, res) => {
@@ -134,6 +140,7 @@ const user = (req, res) => {
     });
 }
 
+// Subir ficheros
 const upload = (req, res) => {
 
   // Sacar publication id
@@ -193,12 +200,29 @@ const upload = (req, res) => {
   });
 }
 
-// Listar publicaciones de usuarios que seguimos
-
-
-// Subir ficheros
-
 // Devolver ficheros
+const media = (req, res) => {
+
+  // Obtener parámetro de la url
+  const file = req.params.file;
+
+  // Montar el path
+  const filePath = "./uploads/publications/"+file;
+
+  // Comprobar
+  fs.stat(filePath, (error, exists) => {
+
+    if(!exists){
+      return res.status(404).send({
+        status: "error", 
+        message: "No existe el media"
+      });
+    }
+
+    // Devolver fichero
+    return res.status(200).sendFile(path.resolve(filePath));
+  });
+};
 
 // Exportar acciones
 module.exports = {
@@ -207,5 +231,6 @@ module.exports = {
   detail,
   remove,
   user,
-  upload
+  upload,
+  media
 }
