@@ -2,7 +2,6 @@ const Follow = require("../models/followModel")
 
 const followUserIds = async (userId) => {
 
-
   // Usuarios que sigue userId
   let following = await Follow.find({ "user": userId })
     .select({ "_id": 0, "__v": 0, "user": 0, "created_at": 0 })

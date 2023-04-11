@@ -5,6 +5,8 @@ const path = require("path");
 // Importar modélos
 const Publication = require("../models/publication");
 
+// Importar servicios
+const followService = require("../services/followService");
 
 // Acciones de prueba
 const pruebaPublication = (req, res) => {
@@ -176,11 +178,11 @@ const upload = (req, res) => {
 
   // Si es correcto hacer, guardar la imagen en DB
   Publication.findOneAndUpdate(
-    { user: req.user.id, "_id":publicationId },
+    { user: req.user.id, "_id": publicationId },
     { file: req.file.filename },
     { new: true },
     (error, publicationUpdated) => {
-      
+
       if (error || !publicationUpdated) {
         return res.status(500).json({
           status: "error",
@@ -197,7 +199,7 @@ const upload = (req, res) => {
         file: req.file,
       });
 
-  });
+    });
 }
 
 // Devolver ficheros
@@ -207,14 +209,14 @@ const media = (req, res) => {
   const file = req.params.file;
 
   // Montar el path
-  const filePath = "./uploads/publications/"+file;
+  const filePath = "./uploads/publications/" + file;
 
   // Comprobar
   fs.stat(filePath, (error, exists) => {
 
-    if(!exists){
+    if (!exists) {
       return res.status(404).send({
-        status: "error", 
+        status: "error",
         message: "No existe el media"
       });
     }
@@ -224,6 +226,52 @@ const media = (req, res) => {
   });
 };
 
+// Listado de publicaciones de seguidores que estoy siguiendo
+const feed = async (req, res) => {
+  // Sacar la página actual
+  let page = 1;
+
+  if (req.params.page) {
+    page = req.params.page;
+  }
+
+  // Establecer número de elementos por página
+  let itemsPerPage = 5;
+
+  // Sacar un array de identificadores de usuarios que yo sigo cómo usuario identificado
+  try {
+    // Saco las personas que sigo
+    const myFollows = await followService.followUserIds(req.user.id);
+
+    // Filtro las prublicaciones de esas personas que sigo
+    const publications = await Publication.find({
+      user: myFollows.following
+    });//.exec((error, publications))
+
+
+
+    // Find a publicaciones usando el operador $in
+    return res.status(200).send({
+      status: "success",
+      message: "Feed de publicaciones",
+      following: myFollows.following,
+      publications
+    });
+  } catch (error) {
+    return res.status(500).send({
+      status: "error",
+      message: "No se han listado las publicaciones"
+    });
+
+  }
+
+
+
+
+
+}
+
+
 // Exportar acciones
 module.exports = {
   pruebaPublication,
@@ -232,5 +280,6 @@ module.exports = {
   remove,
   user,
   upload,
-  media
+  media,
+  feed
 }
